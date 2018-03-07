@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>豆豆豆</title>
+  
+  <subtitle>学无止境</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://douzhiwei.top/"/>
+  <updated>2018-03-07T09:07:36.000Z</updated>
+  <id>http://douzhiwei.top/</id>
+  
+  <author>
+    <name>豆</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>渐进增强和优雅降级</title>
+    <link href="http://douzhiwei.top/2018/03/07/%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7/"/>
+    <id>http://douzhiwei.top/2018/03/07/渐进增强和优雅降级/</id>
+    <published>2018-03-07T08:49:06.000Z</published>
+    <updated>2018-03-07T09:07:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>渐进增强 progressive enhancement</strong>：针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验</p><p><strong>优雅降级</strong>：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容</p><a id="more"></a><p><strong>区别</strong>：</p><ul><li>优雅降级是从复杂的现状开始，并试图减少用户体验的供给，</li><li><p>渐进增强则是从一个非常基础的，能够起作用的版本开始，并不断扩充，以适应未来环境的需要<br>优雅降级观点</p></li><li><p>优雅降级观点认为应该针对那些最高级、最完善的浏览器来设计网站。而将那些被认为“过时”或有功能缺失的浏览器下的测试工作安排在开发周期的最后阶段，并把测试对象限定为主流浏览器在这种设计范例下，旧版的浏览器被认为仅能提供“简陋却无妨（poor, but passable)“的浏览体验。你可以做一些小的调整来适应某个特定的浏览器。但由于它们并非我们所关注的焦点，因此除了修复较大的错误之外，其它的差异将被直接忽略。</p></li><li><p>渐进增强则认为应关注于内容本身。内容是我们建立网站的诱因。有的网站展示它，有的则收集它，有的寻求，有的操作，还有的网站甚至会包含以上的种种，但相同点是它们全都涉及到内容。这使得“渐进增强”成为一种更为合理的设计范例。这也是它立即被 Yahoo！所采纳并用以构建其“分级式浏览器支持（Graded Browser Support）”策略的原因所在。</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;渐进增强 progressive enhancement&lt;/strong&gt;：针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;优雅降级&lt;/strong&gt;：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="渐进增强和优雅降级" scheme="http://douzhiwei.top/tags/%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>测试分类和标签</title>
+    <link href="http://douzhiwei.top/2018/03/07/%E5%93%88%E5%93%88%E5%93%88/"/>
+    <id>http://douzhiwei.top/2018/03/07/哈哈哈/</id>
+    <published>2018-03-07T07:04:28.000Z</published>
+    <updated>2018-03-07T08:57:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h4>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;内容&quot;&gt;&lt;a href=&quot;#内容&quot; class=&quot;headerlink&quot; title=&quot;内容&quot;&gt;&lt;/a&gt;内容&lt;/h4&gt;
+      
+    
+    </summary>
+    
+      <category term="分类" scheme="http://douzhiwei.top/categories/%E5%88%86%E7%B1%BB/"/>
+    
+    
+      <category term="标签1" scheme="http://douzhiwei.top/tags/%E6%A0%87%E7%AD%BE1/"/>
+    
+      <category term="标签2" scheme="http://douzhiwei.top/tags/%E6%A0%87%E7%AD%BE2/"/>
+    
+  </entry>
+  
+</feed>
