@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://douzhiwei.top/"/>
-  <updated>2018-03-13T03:46:55.000Z</updated>
+  <updated>2018-03-13T04:09:32.000Z</updated>
   <id>http://douzhiwei.top/</id>
   
   <author>
@@ -15,6 +15,69 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Number、parseInt和parseFloat的比较</title>
+    <link href="http://douzhiwei.top/2018/03/11/Number%E3%80%81parseInt%E5%92%8CparseFloat%E7%9A%84%E6%AF%94%E8%BE%83/"/>
+    <id>http://douzhiwei.top/2018/03/11/Number、parseInt和parseFloat的比较/</id>
+    <published>2018-03-11T14:07:24.000Z</published>
+    <updated>2018-03-13T04:09:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>三者的作用： Number(): 可以用于任何数据类型转换成数值； parseInt()、parseFloat(): 专门用于把字符串转换成数值；<br>escape、encodeURI和encodeURIComponent</strong></p><ul><li>escape是对字符串(string)进行编码(而另外两种是对URL)<ul><li>ASCII字母、数字、@*/+ ，这几个字符不会被编码，其余的都会</li><li>用于字符串,不用于url</li></ul></li><li>最常用的encodeURI和encodeURIComponent<ul><li>encodeURI方法不会对下列字符编码 ASCII字母、数字、~!@#$&amp;*()=:/,;?+’</li><li>encodeURIComponent方法不会对下列字符编码 ASCII字母、数字、~!*()’</li><li>所以encodeURIComponent比encodeURI编码的范围更大</li></ul></li><li>什么时候用什么<ul><li>如果只是编码字符串，不和URL有半毛钱关系，那么用escape</li><li>如果你需要编码整个URL，然后需要使用这个URL，那么用encodeURI</li><li>当你需要编码URL中的参数的时候，那么encodeURIComponent是最好方法</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;三者的作用： Number(): 可以用于任何数据类型转换成数值； parseInt()、parseFloat(): 专门用于把字符串转换成数值；&lt;br&gt;escape、encodeURI和encodeURIComponent&lt;/strong&gt;&lt;/p&gt;
+&lt;ul
+      
+    
+    </summary>
+    
+    
+      <category term="js易忘知识点" scheme="http://douzhiwei.top/tags/js%E6%98%93%E5%BF%98%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>css flex 弹性布局 vs 普通布局</title>
+    <link href="http://douzhiwei.top/2018/03/10/css%20flex%20%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80%20vs%20%E6%99%AE%E9%80%9A%E5%B8%83%E5%B1%80/"/>
+    <id>http://douzhiwei.top/2018/03/10/css flex 弹性布局 vs 普通布局/</id>
+    <published>2018-03-10T04:01:09.000Z</published>
+    <updated>2018-03-13T04:08:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>盒子模型,依赖display+position+float</li><li>IE 10+,别的浏览器肯定都支持</li><li>设置为flex后,子元素的float,clear,vertical-align 都将失效</li><li>任何元素都可以使用flex</li></ul><p>6个容器属性</p><p>1.flex-direction,决定主轴的方向<br>flex-direction: row | row-reverse | column | column-reverse;</p><ul><li>row（默认值）：主轴为水平方向，起点在左端。</li><li>row-reverse：主轴为水平方向，起点在右端。</li><li>column：主轴为垂直方向，起点在上沿。</li><li>column-reverse：主轴为垂直方向，起点在下沿。</li></ul><p>2.flex-warp 规定如何换行<br>flex-wrap: nowrap | wrap | wrap-reverse;</p><ul><li>nowarp（默认值）：不换行</li><li>wrap：换行,第一行在上面。</li><li>warp-reverse：换行,第一行在下面</li></ul><a id="more"></a><p>3.flex-flow flex-direction和flex-wrap的简写,默认值是row nowarp</p><p>4.justfy-content 在主轴的对齐方式<br>justify-content: flex-start | flex-end | center | space-between | space-around;</p><ul><li>flex-start（默认值）：左对齐</li><li>flex-end：右对齐</li><li>center： 居中</li><li>space-between：两端对齐，项目之间的间隔都相等。</li><li>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</li></ul><p>5.aligin-items 在交叉轴如何对齐 用这个来实现垂直居中就非常简单了 center就ok了<br>align-items: flex-start | flex-end | center | baseline | stretch</p><ul><li>flex-start：交叉轴的起点对齐。</li><li>flex-end：交叉轴的终点对齐。</li><li>center：交叉轴的中点对齐。</li><li>baseline: 项目的第一行文字的基线对齐。</li><li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</li></ul><p>6.aligin-content 规定在多个轴的对齐方式,如果只有一个轴这个属性将不去作用<br>align-content: flex-start | flex-end | center | space-between | space-around | stretch;</p><ul><li>flex-start：与交叉轴的起点对齐。</li><li>flex-end：与交叉轴的终点对齐。</li><li>center：与交叉轴的中点对齐。</li><li>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</li><li>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</li><li>stretch（默认值）：轴线占满整个交叉轴。</li></ul><p>6个项目属性</p><p>1.order 定义项目的排列顺序 数字越小越靠前</p><p>2.flex-grow 定义项目的放大比例,默认0</p><p>3.flex-shrink 定义项目的缩放比例,默认是1</p><p>4.flex-basis 设置项目大小</p><p>5.flex 是 flex-grow flex-shrink flex-basic 的简写 默认0 1 auto</p><p>6.align-self 项目可以有单独的对齐方式可以覆盖aligin-item </p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;盒子模型,依赖display+position+float&lt;/li&gt;
+&lt;li&gt;IE 10+,别的浏览器肯定都支持&lt;/li&gt;
+&lt;li&gt;设置为flex后,子元素的float,clear,vertical-align 都将失效&lt;/li&gt;
+&lt;li&gt;任何元素都可以使用flex&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;6个容器属性&lt;/p&gt;
+&lt;p&gt;1.flex-direction,决定主轴的方向&lt;br&gt;flex-direction: row | row-reverse | column | column-reverse;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;row（默认值）：主轴为水平方向，起点在左端。&lt;/li&gt;
+&lt;li&gt;row-reverse：主轴为水平方向，起点在右端。&lt;/li&gt;
+&lt;li&gt;column：主轴为垂直方向，起点在上沿。&lt;/li&gt;
+&lt;li&gt;column-reverse：主轴为垂直方向，起点在下沿。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2.flex-warp 规定如何换行&lt;br&gt;flex-wrap: nowrap | wrap | wrap-reverse;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;nowarp（默认值）：不换行&lt;/li&gt;
+&lt;li&gt;wrap：换行,第一行在上面。&lt;/li&gt;
+&lt;li&gt;warp-reverse：换行,第一行在下面&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="css" scheme="http://douzhiwei.top/tags/css/"/>
+    
+  </entry>
   
   <entry>
     <title>exec,match,replace,test方法对比</title>
