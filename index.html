@@ -355,6 +355,48 @@
         
           
             <p><strong>注：pattern 为RegExp的实例, str 为String的实例</strong><br>| 用法     | 说明    |  返回值    |<br>| ——- | :——-: | :——-:  |<br>| pattern.test(str) | 判断str是否包含匹配结果 | 包含返回true，不包含返回false |<br>| pattern.exec(str) | 根据pattern对str进行正则匹配  | 返回匹配结果数组,如匹配不到返回null |<br>| str.match(pattern)| 根据pattern对str进行正则匹配 | 返回匹配结果数组,如匹配不到返回null |<br>| str.replace(pattern, replacement) | 根据pattern进行正则匹配,把匹配结果替换为replacement | 一个新的字符串 | </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">每个生命周期函数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">beforeCreate</td>
+<td style="text-align:center">组件实例刚被创建,组件属性计算之前,如data</td>
+</tr>
+<tr>
+<td style="text-align:left">created</td>
+<td style="text-align:center">组件实例创建完成,属性已绑定</td>
+</tr>
+<tr>
+<td style="text-align:left">beforeMounted</td>
+<td style="text-align:center">模板编译/挂载之前</td>
+</tr>
+<tr>
+<td style="text-align:left">mounted</td>
+<td style="text-align:center">模板编译/挂载之后</td>
+</tr>
+<tr>
+<td style="text-align:left">beforeUpdate</td>
+<td style="text-align:center">组件更新前</td>
+</tr>
+<tr>
+<td style="text-align:left">update</td>
+<td style="text-align:center">组件更新后</td>
+</tr>
+<tr>
+<td style="text-align:left">beforeDestroy</td>
+<td style="text-align:center">组件销毁前</td>
+</tr>
+<tr>
+<td style="text-align:left">destroy</td>
+<td style="text-align:center">组件销毁后</td>
+</tr>
+</tbody>
+</table>
 
           
         
