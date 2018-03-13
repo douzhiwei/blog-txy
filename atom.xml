@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://douzhiwei.top/"/>
-  <updated>2018-03-07T11:45:37.000Z</updated>
+  <updated>2018-03-13T02:54:48.000Z</updated>
   <id>http://douzhiwei.top/</id>
   
   <author>
@@ -15,6 +15,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>slice,splice和split</title>
+    <link href="http://douzhiwei.top/2018/03/13/slice-splice%E5%92%8Csplit/"/>
+    <id>http://douzhiwei.top/2018/03/13/slice-splice和split/</id>
+    <published>2018-03-13T02:54:48.000Z</published>
+    <updated>2018-03-13T02:54:48.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>基于node的上线打包替换api地址的问题</title>
