@@ -100,19 +100,21 @@
 
 
   
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="js易忘知识点," />
 
 
-<meta name="description" content="菜鸟程序员一枚">
-<meta property="og:type" content="website">
-<meta property="og:title" content="豆豆豆">
-<meta property="og:url" content="http://douzhiwei.top/tags/标签2/index.html">
+<meta name="description" content="注：pattern 为RegExp的实例, str 为String的实例| 用法 | 说明 | 返回值 || :— | :—  |:—-  || pattern.test(str) |判断str是否包含匹配结果 |包含返回true，不包含返回false。||pattern.exec(str) | 根据pattern对str进行正则匹配  | 返回匹配结果数组,如匹配不到返回null ||str.m">
+<meta name="keywords" content="js易忘知识点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="exec,match,replace,test方法对比">
+<meta property="og:url" content="http://douzhiwei.top/2018/03/09/exec-match-replace-test方法对比/index.html">
 <meta property="og:site_name" content="豆豆豆">
-<meta property="og:description" content="菜鸟程序员一枚">
+<meta property="og:description" content="注：pattern 为RegExp的实例, str 为String的实例| 用法 | 说明 | 返回值 || :— | :—  |:—-  || pattern.test(str) |判断str是否包含匹配结果 |包含返回true，不包含返回false。||pattern.exec(str) | 根据pattern对str进行正则匹配  | 返回匹配结果数组,如匹配不到返回null ||str.m">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-13T03:24:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="豆豆豆">
-<meta name="twitter:description" content="菜鸟程序员一枚">
+<meta name="twitter:title" content="exec,match,replace,test方法对比">
+<meta name="twitter:description" content="注：pattern 为RegExp的实例, str 为String的实例| 用法 | 说明 | 返回值 || :— | :—  |:—-  || pattern.test(str) |判断str是否包含匹配结果 |包含返回true，不包含返回false。||pattern.exec(str) | 根据pattern对str进行正则匹配  | 返回匹配结果数组,如匹配不到返回null ||str.m">
 
 
 
@@ -121,7 +123,7 @@
 
 
 
-  <link rel="canonical" href="http://douzhiwei.top/tags/标签2/"/>
+  <link rel="canonical" href="http://douzhiwei.top/2018/03/09/exec-match-replace-test方法对比/"/>
 
 
 
@@ -130,7 +132,7 @@
     sidebar: "",
   };
 </script>
-  <title>标签: 标签2 | 豆豆豆</title>
+  <title>exec,match,replace,test方法对比 | 豆豆豆</title>
   
 
 
@@ -177,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,58 +269,159 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>标签2<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/03/09/exec-match-replace-test方法对比/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="豆">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="豆豆豆">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/03/07/哈哈哈/" itemprop="url">
-              
-                <span itemprop="name">测试分类和标签</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">exec,match,replace,test方法对比</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-07T15:04:28+08:00"
-              content="2018-03-07" >
-          03-07
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T11:10:00+08:00">2018-03-09</time>
+            
 
-    </header>
-  </article>
+            
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>注：pattern 为RegExp的实例, str 为String的实例</strong><br>| 用法 | 说明 | 返回值 |<br>| :— | :—  |:—-  |<br>| pattern.test(str) |判断str是否包含匹配结果 |包含返回true，不包含返回false。|<br>|pattern.exec(str) | 根据pattern对str进行正则匹配  | 返回匹配结果数组,如匹配不到返回null |<br>|str.match(pattern)  |根据pattern对str进行正则匹配 |返回匹配结果数组,如匹配不到返回null |<br>|str.replace(pattern, replacement) |根据pattern进行正则匹配,把匹配结果替换为replacement| 一个新的字符串 |r.replace(pattern, replacement) |根据pattern进行正则匹配,把匹配结果替换为replacement| 一个新的字符串 |</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js易忘知识点/" rel="tag"><i class="fa fa-tag"></i> js易忘知识点</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/08/slice-splice和split/" rel="next" title="slice,splice和split">
+                <i class="fa fa-chevron-left"></i> slice,splice和split
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -553,6 +656,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.5"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.5"></script>
+
+
 
   
 

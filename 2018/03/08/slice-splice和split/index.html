@@ -103,18 +103,18 @@
   <meta name="keywords" content="js易忘知识点," />
 
 
-<meta name="description" content="slice可用于数组和字符串  用于数组用法:array.slice(start,end)返回一个新的数组，包含从 start 到 end （不包括该元素）的 arrayObject 中的元素。(含头不含尾),注意不会修改原数组 123456789101112131415161718192021let a=[1,2,3,4,5,6];let b=a.slice(0,3);  //[1,2,3]//">
+<meta name="description" content="slice可用于数组和字符串  用于数组用法:array.slice(start,end)返回一个新的数组，包含从 start 到 end （不包括该元素）的 arrayObject 中的元素。(含头不含尾),注意不会修改原数组123456789101112131415161718192021let a=[1,2,3,4,5,6];let b=a.slice(0,3);  //[1,2,3]//如">
 <meta name="keywords" content="js易忘知识点">
 <meta property="og:type" content="article">
 <meta property="og:title" content="slice,splice和split">
 <meta property="og:url" content="http://douzhiwei.top/2018/03/08/slice-splice和split/index.html">
 <meta property="og:site_name" content="豆豆豆">
-<meta property="og:description" content="slice可用于数组和字符串  用于数组用法:array.slice(start,end)返回一个新的数组，包含从 start 到 end （不包括该元素）的 arrayObject 中的元素。(含头不含尾),注意不会修改原数组 123456789101112131415161718192021let a=[1,2,3,4,5,6];let b=a.slice(0,3);  //[1,2,3]//">
+<meta property="og:description" content="slice可用于数组和字符串  用于数组用法:array.slice(start,end)返回一个新的数组，包含从 start 到 end （不包括该元素）的 arrayObject 中的元素。(含头不含尾),注意不会修改原数组123456789101112131415161718192021let a=[1,2,3,4,5,6];let b=a.slice(0,3);  //[1,2,3]//如">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-13T03:06:02.000Z">
+<meta property="og:updated_time" content="2018-03-13T03:08:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="slice,splice和split">
-<meta name="twitter:description" content="slice可用于数组和字符串  用于数组用法:array.slice(start,end)返回一个新的数组，包含从 start 到 end （不包括该元素）的 arrayObject 中的元素。(含头不含尾),注意不会修改原数组 123456789101112131415161718192021let a=[1,2,3,4,5,6];let b=a.slice(0,3);  //[1,2,3]//">
+<meta name="twitter:description" content="slice可用于数组和字符串  用于数组用法:array.slice(start,end)返回一个新的数组，包含从 start 到 end （不包括该元素）的 arrayObject 中的元素。(含头不含尾),注意不会修改原数组123456789101112131415161718192021let a=[1,2,3,4,5,6];let b=a.slice(0,3);  //[1,2,3]//如">
 
 
 
@@ -353,11 +353,12 @@
       
         <p><strong>slice可用于数组和字符串</strong></p>
 <ul>
-<li><p>用于数组<br>用法:<code>array.slice(start,end)</code><br>返回一个新的数组，包含从 start 到 end （不包括该元素）的 arrayObject 中的元素。(含头不含尾),注意不会修改原数组</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">0</span>,<span class="number">3</span>);  <span class="comment">//[1,2,3]</span></span><br><span class="line"><span class="comment">//如果不传入参数二，那么将从参数一的索引位置开始截取，一直到数组尾</span></span><br><span class="line"><span class="keyword">let</span> c=a.slice(<span class="number">3</span>);    <span class="comment">//[4,5,6]</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//当只传入一个参数，且是负数时，比如说-1指最后一个元素,-2是倒数第二个,以此类推</span></span><br><span class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">-1</span>);  <span class="comment">//[6]</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//当只传入一个参数，是负数时,绝对值大于数组的长度，会截取整个数组</span></span><br><span class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">-6</span>);  <span class="comment">//[1,2,3,4,5,6]</span></span><br><span class="line"><span class="keyword">let</span> c=a.slice(<span class="number">-8</span>);  <span class="comment">//[1,2,3,4,5,6]</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//当传入两个参数一正一负时,2表示从'3'开始到'4'</span></span><br><span class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">2</span>,<span class="number">-3</span>);  <span class="comment">//[3]</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//当传入一个参数，大于length时，将返回一个空数组</span></span><br><span class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">6</span>);　　<span class="comment">//[]</span></span><br></pre></td></tr></table></figure>
+<li>用于数组<br>用法:<code>array.slice(start,end)</code><br>返回一个新的数组，包含从 start 到 end （不包括该元素）的 arrayObject 中的元素。(含头不含尾),注意不会修改原数组<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">0</span>,<span class="number">3</span>);  <span class="comment">//[1,2,3]</span></span><br><span class="line"><span class="comment">//如果不传入参数二，那么将从参数一的索引位置开始截取，一直到数组尾</span></span><br><span class="line"><span class="keyword">let</span> c=a.slice(<span class="number">3</span>);    <span class="comment">//[4,5,6]</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//当只传入一个参数，且是负数时，比如说-1指最后一个元素,-2是倒数第二个,以此类推</span></span><br><span class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">-1</span>);  <span class="comment">//[6]</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//当只传入一个参数，是负数时,绝对值大于数组的长度，会截取整个数组</span></span><br><span class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">-6</span>);  <span class="comment">//[1,2,3,4,5,6]</span></span><br><span class="line"><span class="keyword">let</span> c=a.slice(<span class="number">-8</span>);  <span class="comment">//[1,2,3,4,5,6]</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//当传入两个参数一正一负时,2表示从'3'开始到'4'</span></span><br><span class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">2</span>,<span class="number">-3</span>);  <span class="comment">//[3]</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//当传入一个参数，大于length时，将返回一个空数组</span></span><br><span class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">6</span>);　　<span class="comment">//[]</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>用于字符串<br>用法：<code>string.slice(start,end)</code><br>slice方法复制string的一部分来构造一个新的字符串，用法与参数匀和数组的slice方法一样;end参数等于你要取的最后一个字符的位置值加上1</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a=<span class="string">"i am a boy"</span>;</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">0</span>,<span class="number">6</span>);  <span class="comment">//"i am a"</span></span><br></pre></td></tr></table></figure>
+</ul>
+<a id="more"></a>
+<ul>
+<li>用于字符串<br>用法：<code>string.slice(start,end)</code><br>slice方法复制string的一部分来构造一个新的字符串，用法与参数匀和数组的slice方法一样;end参数等于你要取的最后一个字符的位置值加上1<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a=<span class="string">"i am a boy"</span>;</span><br><span class="line"><span class="keyword">let</span> b=a.slice(<span class="number">0</span>,<span class="number">6</span>);  <span class="comment">//"i am a"</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p><strong>splice只能用于数组</strong></p>
@@ -413,6 +414,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/09/exec-match-replace-test方法对比/" rel="prev" title="exec,match,replace,test方法对比">
+                exec,match,replace,test方法对比 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -481,7 +486,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
