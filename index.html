@@ -284,6 +284,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/03/14/vuex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="豆">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="豆豆豆">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/14/vuex/" itemprop="url">vuex</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-14T15:10:23+08:00">2018-03-14</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DMP总结/" itemprop="url" rel="index"><span itemprop="name">DMP总结</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化</p>
+<p>vuex的概念有很多,例如<code>state</code>,<code>getter</code>,<code>mutation</code>,<code>action</code>等等,还有很多用法,这里直接上我们的实践,中间穿插概念的简单说明,如果没接触过vuex,需要先看<a href="https://cn.vuejs.org/v2/guide/installation.html" target="_blank" rel="noopener">官方文档</a></p>
+<p>##项目目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">├── index.html</span><br><span class="line">├── main.js</span><br><span class="line">├── src</span><br><span class="line">│   ├── App.vue</span><br><span class="line">│   └── ...</span><br><span class="line">└── store</span><br><span class="line">    ├── index.js     </span><br><span class="line">    ├── state.js         </span><br><span class="line">    ├── actions.js       </span><br><span class="line">    ├── mutations.js </span><br><span class="line">    ├── mutation-types.js </span><br><span class="line">    └── getters.js</span><br></pre></td></tr></table></figure>
+<h3 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a><code>index.js</code></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> actions <span class="keyword">from</span> <span class="string">'./actions'</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> getters <span class="keyword">from</span> <span class="string">'./getters'</span></span><br><span class="line"><span class="keyword">import</span> state <span class="keyword">from</span> <span class="string">'./state'</span></span><br><span class="line"><span class="keyword">import</span> mutations <span class="keyword">from</span> <span class="string">'./mutations'</span></span><br><span class="line"><span class="keyword">import</span> createLogger <span class="keyword">from</span> <span class="string">'vuex/dist/logger'</span></span><br><span class="line"><span class="comment">// 使用vuex插件,会在控制台看到详细的数据变化</span></span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> debug = process.env.NODE_ENV !== <span class="string">'production'</span></span><br><span class="line"><span class="comment">// 在开发环境使用严格模式，无论何时发生了状态变更且不是由 mutation 函数引起的，将会抛出错误</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  actions,</span><br><span class="line">  getters,</span><br><span class="line">  state,</span><br><span class="line">  mutations,</span><br><span class="line">  strict: debug,</span><br><span class="line">  plugins: debug ? [createLogger()] : []</span><br><span class="line">  <span class="comment">// 只有在开发环境才使用插件</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="state-js"><a href="#state-js" class="headerlink" title="state.js"></a><code>state.js</code></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">  userInfo: &#123;<span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">'占山'</span>&#125;</span><br><span class="line">  <span class="comment">// 预定义所有要用到的变量</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> state</span><br></pre></td></tr></table></figure>
+<h3 id="getters-js"><a href="#getters-js" class="headerlink" title="getters.js"></a><code>getters.js</code></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> userInfo = <span class="function"><span class="params">state</span> =&gt;</span> state.userInfo</span><br><span class="line"><span class="comment">// 可以在这里进行过滤等操作</span></span><br></pre></td></tr></table></figure>
+<h3 id="mutation-types-js"><a href="#mutation-types-js" class="headerlink" title="mutation-types.js"></a><code>mutation-types.js</code></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> USER_LOGIN = <span class="string">'USER_LOGIN'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> USER_LOGOUT = <span class="string">'USER_LOGOUT'</span></span><br><span class="line"><span class="comment">// 定义常量,在mutations.js和actions.js</span></span><br><span class="line"><span class="comment">// 使用常量替代 Mutation 事件类型 官方推荐写法</span></span><br></pre></td></tr></table></figure>
+<h3 id="mutations-js"><a href="#mutations-js" class="headerlink" title="mutations.js"></a><code>mutations.js</code></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> types <span class="keyword">from</span> <span class="string">'./mutation-types'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mutations = &#123;</span><br><span class="line">  [types.USER_LOGIN] (state, params) &#123;</span><br><span class="line">    state.userInfo = params</span><br><span class="line">  &#125;,</span><br><span class="line">  [types.USER_LOGOUT] (state, params) &#123;</span><br><span class="line">    storage.remove(<span class="string">'user-info'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> mutations</span><br></pre></td></tr></table></figure>
+<h3 id="actions-js"><a href="#actions-js" class="headerlink" title="actions.js"></a><code>actions.js</code></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> types <span class="keyword">from</span> <span class="string">'./mutation-types'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> userLogin = <span class="function"><span class="keyword">function</span> (<span class="params">&#123;commit&#125;, userInfo</span>) </span>&#123;</span><br><span class="line">  commit(types.USER_LOGIN, userInfo)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> userLogOut = <span class="function"><span class="keyword">function</span> (<span class="params">&#123;commit&#125;</span>) </span>&#123;</span><br><span class="line">  commit(types.USER_LOGOUT)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="几个易混的辅助函数"><a href="#几个易混的辅助函数" class="headerlink" title="几个易混的辅助函数"></a>几个易混的辅助函数</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mapState</td>
+<td style="text-align:left">mapState 工具函数会将 store 中的 state 映射到局部计算属性中</td>
+</tr>
+<tr>
+<td style="text-align:left">mapGetters</td>
+<td style="text-align:left">mapGetters 工具函数会将 store 中的 getter 映射到局部计算中</td>
+</tr>
+<tr>
+<td style="text-align:left">mapActions</td>
+<td style="text-align:left">mapActions 工具函数会将 store 中的 dispatch 方法映射到组件的 methods 中</td>
+</tr>
+</tbody>
+</table>
+<p>这个三个函数都是vuex的语法糖,通过上面代码的组织方式,我们常用的是<code>mapGetters</code>和<br><code>mapActions</code></p>
+<h2 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h2><p>最开始在<code>main.js</code>中注入store</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    router,</span><br><span class="line">    store,</span><br><span class="line">    template: <span class="string">'&lt;App/&gt;'</span>,</span><br><span class="line">    components: &#123;App&#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 以上的所有地方的写法都是固定的</span></span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 这里我们用一个登录保存用户信息在其他组件内使用用户信息和登出清空用户信息的这样的一个例子跑一遍vuex的流程</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">1- 登录</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>js</span><br><span class="line"> methods: &#123;</span><br><span class="line">      ...mapActions([<span class="string">'userLogin'</span>]),</span><br><span class="line">      <span class="comment">//使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用</span></span><br><span class="line">      login () &#123;       </span><br><span class="line">        api.user.login.save(<span class="keyword">this</span>.form).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (res.data.status === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.userLogin(<span class="keyword">this</span>.form)</span><br><span class="line">    <span class="comment">// 过程</span></span><br><span class="line">    <span class="number">1.</span>调用action里的userLogin()</span><br><span class="line">    <span class="number">2.</span> userLogin()会commit一个叫[USER_LOGIN]的mutation</span><br><span class="line">    <span class="number">3.</span> 名为[USER_LOGIN]的mutation会操作state,把userInfo保存在state中  </span><br><span class="line"></span><br><span class="line">      </span><br><span class="line">          &#125; </span><br><span class="line">        &#125;)...  </span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p>2- 再组件内获取用户信息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> computed: &#123;</span><br><span class="line">          ...mapGetters([</span><br><span class="line">              <span class="string">'userInfo'</span></span><br><span class="line">          ])</span><br><span class="line">      &#125;</span><br><span class="line"><span class="comment">// 通过mapGetters把userInfo映射到局部计算属性,</span></span><br><span class="line">   这时就可以通过<span class="keyword">this</span>.userInfo获取到用户信息</span><br></pre></td></tr></table></figure>
+<p>3- 操作userInfo信息</p>
+<p>当我们点击登出的时候,需要操作把state里面的userInfo信息清楚</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">     ...mapActions([<span class="string">'userLogOut'</span>]),</span><br><span class="line">     <span class="comment">// 这里我们之前已经用过了,不说了</span></span><br><span class="line">    </span><br><span class="line">     logOut() &#123;</span><br><span class="line">         <span class="keyword">this</span>.userLogOut()</span><br><span class="line">    <span class="comment">// 过程</span></span><br><span class="line">     <span class="number">1.</span> 调用action里的userLogOut()</span><br><span class="line"> <span class="number">2.</span> userLogOut()会commit一个叫[USER_LOGOUT]的mutation</span><br><span class="line"> <span class="number">3.</span> 名为[USER_LOGOUT]的mutation会操作state,删除userInfo               </span><br><span class="line">     &#125;</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+<p><strong>ok这一圈跑完了</strong></p>
+<p>vuex可能会有一点难理解,首先的多看几遍官方文档</p>
+<p>至于文档里提到过的Module写法,再dmp项目里已经用过了,感觉不如现在的代码整洁,现在这种方式在ssp项目有应用,效果还不错</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/03/14/vue项目总结-进阶-响应式原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -371,22 +555,17 @@
 
       
         
-          
-            <p>###监测变化</p>
+          <p>###监测变化</p>
 <ul>
 <li>把一个普通 <strong><code>JavaScript</code></strong> 对象传给 <strong><code>Vue</code></strong> 实例的 <strong><code>data</code></strong> 选项，<strong><code>Vue</code></strong> 将遍历此对象所有的属性，并使用 <strong><code>Object.defineProperty</code></strong> 把这些属性全部转为 <strong><code>getter/setter</code></strong>,<strong><code>Vue</code></strong> 不允许在已经创建的实例上动态添加新的根级响应式属性。但是可以使用 <strong><code>Vue.set(object, key, value)</code></strong> 方法将响应属性添加到嵌套的对象上</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Vue.set(vm.someObject, <span class="string">'b'</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">//使用 vm.$set 实例方法</span></span><br><span class="line"><span class="keyword">this</span>.$set(<span class="keyword">this</span>.someObject,<span class="string">'b'</span>,<span class="number">2</span>)</span><br><span class="line"><span class="comment">//项目中 设置属性 让Vue能够监测到</span></span><br><span class="line">created()&#123;</span><br><span class="line"><span class="comment">// 初始化数据 让vue能够监测</span></span><br><span class="line"><span class="keyword">for</span> ( <span class="keyword">let</span> a <span class="keyword">of</span> <span class="keyword">this</span>.dataList ) &#123;</span><br><span class="line"><span class="keyword">if</span> (a) &#123;</span><br><span class="line"><span class="keyword">this</span>.$set(a, <span class="string">"showChildrens"</span>, <span class="literal">false</span>);</span><br><span class="line"><span class="keyword">this</span>.$set(a, <span class="string">"sel"</span>, <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> ( <span class="keyword">let</span> b <span class="keyword">of</span> a.sub_category ) &#123;</span><br><span class="line"><span class="keyword">if</span> (b) &#123;</span><br><span class="line"><span class="keyword">this</span>.$set(b, <span class="string">"sel"</span>, <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>有时你想向已有对象上添加一些属性，例如使用 <code>Object.assign()</code> 或<code>_.extend()</code> 方法来添加属性。但是，添加到对象上的新属性不会触发更新。在这种情况下可以创建一个新的对象，让它包含原对象的属性和新的属性：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 代替 `Object.assign(this.someObject, &#123; a: 1, b: 2 &#125;)`</span></span><br><span class="line"><span class="keyword">this</span>.someObject = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.someObject, &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span> &#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="异步更新队列"><a href="#异步更新队列" class="headerlink" title="异步更新队列"></a>异步更新队列</h3><p>Vue 异步执行 DOM 更新。只要观察到数据变化，Vue 将开启一个队列，并缓冲在同一事件循环中发生的所有数据改变。如果同一个 watcher 被多次触发，只会被推入到队列中一次。这种在缓冲时去除重复数据对于避免不必要的计算和 DOM 操作上非常重要,有的时候我们明明代码写的没问题但是达不到我们的预期,这大多跟异步更新有关系,这时候就要用<br><code>$nextTick</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'has'</span>, &#123;</span><br><span class="line">    bind: <span class="function">(<span class="params">el, binding, vnode</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 这里不用nextTick 会报一个错误:el.parentNode is undefined</span></span><br><span class="line">        vnode.context.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (!Vue.prototype.$_has(binding.value)) &#123;</span><br><span class="line">                el.parentNode.removeChild(el)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"> cityClick(keyCity, keyProvince) &#123;</span><br><span class="line"> <span class="comment">// 这里不实用nextTick,会发现明明checkbox已选中,但是取不到最新的值</span></span><br><span class="line">                <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">this</span>.dataList[keyProvince][keyCity].sel) &#123;</span><br><span class="line">                        <span class="keyword">this</span>.selectChildNode(keyCity, <span class="literal">true</span>)</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">this</span>.selectChildNode(keyCity, <span class="literal">false</span>)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="keyword">this</span>.selectParentNode(<span class="keyword">this</span>.dataList[keyProvince], keyProvince)</span><br><span class="line">            &#125;,</span><br></pre></td></tr></table></figure>
-<h3 id="再看一个经常用到的-改变数组"><a href="#再看一个经常用到的-改变数组" class="headerlink" title="再看一个经常用到的,改变数组"></a>再看一个经常用到的,改变数组</h3><p>由于 JavaScript 的限制， Vue 不能检测以下变动的数组：<br>当你利用索引直接设置一个项时，例如： <code>vm.items[indexOfItem] = newValue</code><br>当你修改数组的长度时，例如： <code>vm.items.length = newLength</code><br>为了解决第一类问题，以下两种方式都可以实现和 <code>vm.items[indexOfItem] = newValue</code> 相同的效果， 同时也将触发状态更新：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Vue.set</span></span><br><span class="line">Vue.set(example1.items, indexOfItem, newValue)</span><br><span class="line"><span class="comment">// Array.prototype.splice</span></span><br><span class="line">example1.items.splice(indexOfItem, <span class="number">1</span>, newValue)</span><br><span class="line">为了解决第二类问题，可以使用 splice：</span><br><span class="line">example1.items.splice(newLength)</span><br></pre></td></tr></table></figure>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/14/vue项目总结-进阶-响应式原理/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -525,8 +704,7 @@
 
       
         
-          
-            <p>和<br>ng一样vue的指令也是操作DOM,说一下基本的写法</p>
+          <p>和ng一样vue的指令也是操作DOM,说一下基本的写法</p>
 <h2 id="钩子函数"><a href="#钩子函数" class="headerlink" title="钩子函数"></a>钩子函数</h2><p>指令定义函数提供了几个钩子函数（可选）：</p>
 <ul>
 <li><p><code>bind</code>: 只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个在绑定时执行一次的初始化动作。</p>
@@ -541,23 +719,13 @@
 </li>
 </ul>
 <p>接下来我们来看一下钩子函数的参数 (包括 <code>el</code>，<code>binding</code>，<code>vnode</code>，<code>oldVnode</code>) 。</p>
-<h3 id="钩子函数参数"><a href="#钩子函数参数" class="headerlink" title="钩子函数参数"></a>钩子函数参数</h3><p>钩子函数被赋予了以下参数：</p>
-<ul>
-<li><strong>el</strong>: 指令所绑定的元素，可以用来直接操作 DOM 。</li>
-<li><strong>binding</strong>: 一个对象，包含以下属性：</li>
-<li><strong>name</strong>: 指令名，不包括 <code>v-</code> 前缀。</li>
-<li><strong>value</strong>: 指令的绑定值， 例如： <code>v-my-directive=&quot;1 + 1&quot;</code>, value 的值是 <code>2</code>。</li>
-<li><strong>oldValue</strong>: 指令绑定的前一个值，仅在 <code>update</code> 和 <code>componentUpdated</code> 钩子中可用。无论值是否改变都可用。</li>
-<li><strong>expression</strong>: 绑定值的字符串形式。 例如 <code>v-my-directive=&quot;1 + 1&quot;</code> ， expression 的值是 <code>&quot;1 + 1&quot;</code>。</li>
-<li><strong>arg</strong>: 传给指令的参数。例如 <code>v-my-directive:foo</code>， arg 的值是 <code>&quot;foo&quot;</code>。</li>
-<li><strong>modifiers</strong>: 一个包含修饰符的对象。 例如： <code>v-my-directive.foo.bar</code>, 修饰符对象 modifiers 的值是 <code>{ foo: true, bar: true }</code>。</li>
-<li><strong>vnode</strong>: Vue 编译生成的虚拟节点，查阅 <a href="../api/#VNode接口">VNode API</a> 了解更多详情。</li>
-<li><strong>oldVnode</strong>: 上一个虚拟节点，仅在 <code>update</code> 和 <code>componentUpdated</code> 钩子中可用。</li>
-</ul>
-<p>除了 <code>el</code> 之外，其它参数都应该是只读的，尽量不要修改他们。如果需要在钩子之间共享数据，建议通过元素的 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset" target="_blank" rel="noopener">dataset</a> 来进行。</p>
-<h3 id="看一个项目中的栗子"><a href="#看一个项目中的栗子" class="headerlink" title="看一个项目中的栗子"></a>看一个项目中的栗子</h3><p><strong>点击除指定div关闭</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> clickoutsideContext = <span class="string">'@@clickoutsideContext'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">@param el 指令所绑定的元素</span></span><br><span class="line"><span class="comment">@param binding &#123;Object&#125;</span></span><br><span class="line"><span class="comment">@param vnode vue编译生成的虚拟节点</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">bind (el, binding, vnode) &#123;</span><br><span class="line"><span class="keyword">const</span> documentHandler = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line"><span class="comment">// console.log(el)</span></span><br><span class="line"><span class="comment">// console.log(e.target);</span></span><br><span class="line"><span class="comment">// console.log(vnode);</span></span><br><span class="line"><span class="comment">// console.log(binding);</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!vnode.context || el.contains(e.target)) &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (binding.expression) &#123;</span><br><span class="line">vnode.context[el[clickoutsideContext].methodName](e)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">el[clickoutsideContext].bindingFn(e);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">el[clickoutsideContext] = &#123;</span><br><span class="line">documentHandler,</span><br><span class="line">methodName: binding.expression,</span><br><span class="line">bindingFn: binding.value</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'click'</span>, documentHandler);</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line">&#125;,</span><br><span class="line">update (el, binding) &#123;</span><br><span class="line">el[clickoutsideContext].methodName = binding.expression;</span><br><span class="line">el[clickoutsideContext].bindingFn = binding.value;</span><br><span class="line">&#125;,</span><br><span class="line">unbind(el) &#123;</span><br><span class="line"><span class="built_in">document</span>.removeEventListener(<span class="string">'click'</span>, el[clickoutsideContext].documentHandler);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/14/vue项目总结-进阶-自定义指令/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -696,23 +864,14 @@
 
       
         
-          
-            <h2 id="混入"><a href="#混入" class="headerlink" title="混入"></a>混入</h2><p>mixins 是一种分发 Vue 组件中可复用功能的非常灵活的方式。可以用mixin来共享变量,比如说翻页数据.权限数据等等,还可以定义方法共享到组件,下面说一下合并的策略,这个很有用</p>
-<h3 id="选项合并"><a href="#选项合并" class="headerlink" title="选项合并"></a>选项合并</h3><ul>
-<li>当组件和混入对象有同名选项时,会已组件数据优先</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mixin = &#123;</span><br><span class="line">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      message: <span class="string">'hello'</span>,</span><br><span class="line">      foo: <span class="string">'abc'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  mixins: [mixin],</span><br><span class="line">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      message: <span class="string">'goodbye'</span>,</span><br><span class="line">      bar: <span class="string">'def'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data)</span><br><span class="line">    <span class="comment">// =&gt; &#123; message: "goodbye", foo: "abc", bar: "def" &#125;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>当组件和mixin有相同钩子时,先执行mixin里面的钩子</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mixin = &#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'混入对象的钩子被调用'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  mixins: [mixin],</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'组件钩子被调用'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// =&gt; "混入对象的钩子被调用"</span></span><br><span class="line"><span class="comment">// =&gt; "组件钩子被调用"</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>当值为对象的选项，例如 methods, components 和 directives，将被混合为同一个对象。两个对象键名冲突时，取组件对象的键值对</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mixin = &#123;</span><br><span class="line">  methods: &#123;</span><br><span class="line">    foo: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'foo'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    conflicting: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'from mixin'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  mixins: [mixin],</span><br><span class="line">  methods: &#123;</span><br><span class="line">    bar: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'bar'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    conflicting: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'from self'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">vm.foo() <span class="comment">// =&gt; "foo"</span></span><br><span class="line">vm.bar() <span class="comment">// =&gt; "bar"</span></span><br><span class="line">vm.conflicting() <span class="comment">// =&gt; "from self"</span></span><br></pre></td></tr></table></figure>
-<h3 id="全局混入"><a href="#全局混入" class="headerlink" title="全局混入"></a>全局混入</h3><p>不推荐使用全局混入,一旦使用全局混入会影响之后创建的所有vue实例,使用全局混入时,最好配置一个options</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 为自定义的选项 'myOption' 注入一个处理器。</span></span><br><span class="line">Vue.mixin(&#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> myOption = <span class="keyword">this</span>.$options.myOption</span><br><span class="line">    <span class="keyword">if</span> (myOption) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(myOption)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  myOption: <span class="string">'hello!'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// =&gt; "hello!"</span></span><br></pre></td></tr></table></figure>
-          
+          <h2 id="混入"><a href="#混入" class="headerlink" title="混入"></a>混入</h2><p>mixins 是一种分发 Vue 组件中可复用功能的非常灵活的方式。可以用mixin来共享变量,比如说翻页数据.权限数据等等,还可以定义方法共享到组件,下面说一下合并的策略,这个很有用</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/14/vue项目总结-进阶-mixin/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1686,149 +1845,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/03/11/Number、parseInt和parseFloat的比较/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="豆">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="豆豆豆">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/11/Number、parseInt和parseFloat的比较/" itemprop="url">Number、parseInt和parseFloat的比较</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-11T22:07:24+08:00">2018-03-11</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>三者的作用： Number(): 可以用于任何数据类型转换成数值； parseInt()、parseFloat(): 专门用于把字符串转换成数值；<br>escape、encodeURI和encodeURIComponent</strong></p>
-<ul>
-<li>escape是对字符串(string)进行编码(而另外两种是对URL)<ul>
-<li>ASCII字母、数字、@*/+ ，这几个字符不会被编码，其余的都会</li>
-<li>用于字符串,不用于url</li>
-</ul>
-</li>
-<li>最常用的encodeURI和encodeURIComponent<ul>
-<li>encodeURI方法不会对下列字符编码 ASCII字母、数字、~!@#$&amp;*()=:/,;?+’</li>
-<li>encodeURIComponent方法不会对下列字符编码 ASCII字母、数字、~!*()’</li>
-<li>所以encodeURIComponent比encodeURI编码的范围更大</li>
-</ul>
-</li>
-<li>什么时候用什么<ul>
-<li>如果只是编码字符串，不和URL有半毛钱关系，那么用escape</li>
-<li>如果你需要编码整个URL，然后需要使用这个URL，那么用encodeURI</li>
-<li>当你需要编码URL中的参数的时候，那么encodeURIComponent是最好方法</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1880,7 +1896,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1934,7 +1950,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
