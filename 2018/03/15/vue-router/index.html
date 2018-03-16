@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="豆豆豆">
 <meta property="og:description" content="使用vue-router，我们只需要做的是将组件(components)映射到路由(routes).vue-router的概念也是比较多,建议先看官方文档,这主要是总结,基础的知识点略过 几个易混概念$route 和 $router $route为当前router跳转对象,里面可以获取name、path、query、params  $router为router的实例,可以使用使用很多实例方法,比如">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-15T04:02:15.000Z">
+<meta property="og:updated_time" content="2018-03-15T07:20:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-router">
 <meta name="twitter:description" content="使用vue-router，我们只需要做的是将组件(components)映射到路由(routes).vue-router的概念也是比较多,建议先看官方文档,这主要是总结,基础的知识点略过 几个易混概念$route 和 $router $route为当前router跳转对象,里面可以获取name、path、query、params  $router为router的实例,可以使用使用很多实例方法,比如">
@@ -376,6 +376,7 @@
 <li><p><code>$router</code>为router的实例,可以使用使用很多实例方法,比如<code>$router.push</code>等</p>
 </li>
 </ul>
+<a id="more"></a>
 <h3 id="动态路由和query参数"><a href="#动态路由和query参数" class="headerlink" title="动态路由和query参数"></a>动态路由和query参数</h3><ul>
 <li>动态路由是以<code>/user/:id</code>的形式,这注意一点例如从 /user/foo 导航到 /user/bar，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。想要检测参数变化可以使用<code>watch</code>和<code>beforeRouteUpdate</code></li>
 <li>query参数的形式是<code>/user?123</code>,嵌套路由不推荐使用这种,会导致路由乱,不好维护</li>
@@ -450,6 +451,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/16/编写vue插件以及发布到npm/" rel="prev" title="编写vue插件以及发布到npm">
+                编写vue插件以及发布到npm <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -527,7 +532,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

@@ -284,6 +284,144 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/03/16/编写vue插件以及发布到npm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="豆">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="豆豆豆">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/16/编写vue插件以及发布到npm/" itemprop="url">编写vue插件以及发布到npm</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-16T10:37:12+08:00">2018-03-16</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="开发插件"><a href="#开发插件" class="headerlink" title="开发插件"></a>开发插件</h2><p>插件通常会为 Vue 添加全局功能。插件的范围没有限制——一般有下面几种：</p>
+<ol>
+<li><p>添加全局方法或者属性，如: <a href="https://github.com/karol-f/vue-custom-element" target="_blank" rel="noopener">vue-custom-element</a></p>
+</li>
+<li><p>添加全局资源：指令/过滤器/过渡等，如 <a href="https://github.com/vuejs/vue-touch" target="_blank" rel="noopener">vue-touch</a></p>
+</li>
+<li><p>通过全局 mixin 方法添加一些组件选项，如: <a href="https://github.com/vuejs/vue-router" target="_blank" rel="noopener">vue-router</a></p>
+</li>
+<li><p>添加 Vue 实例方法，通过把它们添加到 Vue.prototype 上实现。</p>
+</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/16/编写vue插件以及发布到npm/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/03/15/vue-router/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -371,48 +509,20 @@
 
       
         
-          
-            <p>使用vue-router，我们只需要做的是将组件(components)映射到路由(routes).vue-router的概念也是比较多,建议先看<a href="https://router.vuejs.org/zh-cn/essentials/getting-started.html" target="_blank" rel="noopener">官方文档</a>,这主要是总结,基础的知识点略过</p>
+          <p>使用vue-router，我们只需要做的是将组件(components)映射到路由(routes).vue-router的概念也是比较多,建议先看<a href="https://router.vuejs.org/zh-cn/essentials/getting-started.html" target="_blank" rel="noopener">官方文档</a>,这主要是总结,基础的知识点略过</p>
 <h2 id="几个易混概念"><a href="#几个易混概念" class="headerlink" title="几个易混概念"></a>几个易混概念</h2><h3 id="route-和-router"><a href="#route-和-router" class="headerlink" title="$route 和 $router"></a><code>$route</code> 和 <code>$router</code></h3><ul>
 <li><p><code>$route</code>为当前router跳转对象,里面可以获取<code>name、path、query、params</code></p>
 </li>
 <li><p><code>$router</code>为router的实例,可以使用使用很多实例方法,比如<code>$router.push</code>等</p>
 </li>
 </ul>
-<h3 id="动态路由和query参数"><a href="#动态路由和query参数" class="headerlink" title="动态路由和query参数"></a>动态路由和query参数</h3><ul>
-<li>动态路由是以<code>/user/:id</code>的形式,这注意一点例如从 /user/foo 导航到 /user/bar，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。想要检测参数变化可以使用<code>watch</code>和<code>beforeRouteUpdate</code></li>
-<li>query参数的形式是<code>/user?123</code>,嵌套路由不推荐使用这种,会导致路由乱,不好维护</li>
-</ul>
-<h3 id="router-push-name-还是-path"><a href="#router-push-name-还是-path" class="headerlink" title="$router.push name 还是 path"></a>$router.push <code>name</code> 还是 <code>path</code></h3><p><code>name</code>和<code>path</code>用那个都可以,我的建议是不要混用,这里有几点需要注意<br><strong>如果提供了 path，params 会被忽略，上述例子中的 query 并不属于这种情况。取而代之的是下面例子的做法，你需要提供路由的 name 或手写完整的带有参数的 path</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> userId = <span class="number">123</span></span><br><span class="line">router.push(&#123; <span class="attr">name</span>: <span class="string">'user'</span>, <span class="attr">params</span>: &#123; userId &#125;&#125;) <span class="comment">// -&gt; /user/123</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">`/user/<span class="subst">$&#123;userId&#125;</span>`</span> &#125;) <span class="comment">// -&gt; /user/123</span></span><br><span class="line"><span class="comment">// 这里的 params 不生效</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">'/user'</span>, <span class="attr">params</span>: &#123; userId &#125;&#125;) <span class="comment">// -&gt; /user</span></span><br></pre></td></tr></table></figure>
-<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><p>有的时候刚进页面地址是<code>/</code>,这是页面是空白的,我们需要导航到<code>/user</code>,这是可以使用重定向</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">routes: [</span><br><span class="line">   &#123; <span class="attr">path</span>: <span class="string">'/'</span>, <span class="attr">redirect</span>: &#123; <span class="attr">path</span>: <span class="string">'/user'</span> &#125;&#125;</span><br><span class="line"> ]</span><br></pre></td></tr></table></figure>
-<h3 id="路由传参"><a href="#路由传参" class="headerlink" title="路由传参"></a>路由传参</h3><p>为了使路由和组件尽可能的解耦,可以使用prop</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> User = &#123;</span><br><span class="line">  props: [<span class="string">'id'</span>],</span><br><span class="line">  template: <span class="string">'&lt;div&gt;User &#123;&#123; id &#125;&#125;&lt;/div&gt;'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/user/:id'</span>, <span class="attr">component</span>: User, <span class="attr">props</span>: <span class="literal">true</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="守卫"><a href="#守卫" class="headerlink" title="守卫"></a>守卫</h3><p>这列举一下守卫导航,具体信息<a href="https://router.vuejs.org/zh-cn/advanced/navigation-guards.html" target="_blank" rel="noopener">看这</a></p>
-<ol>
-<li>全局守卫<code>router.beforeEach</code></li>
-<li>全局后置钩子<code>router.afterEach</code></li>
-<li>路由独享的守卫<code>beforeEnter</code></li>
-<li>组件内的守卫<code>beforeRouteEnter,beforeRouteUpdate (2.2新增),beforeRouteLeave</code></li>
-</ol>
-<p>####完整的导航解析流程</p>
-<ol>
-<li>导航被触发。</li>
-<li>在失活的组件里调用离开守卫。</li>
-<li>调用全局的 beforeEach 守卫。</li>
-<li>在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。</li>
-<li>在路由配置里调用 beforeEnter。</li>
-<li>解析异步路由组件。</li>
-<li>在被激活的组件里调用 beforeRouteEnter。</li>
-<li>调用全局的 beforeResolve 守卫 (2.5+)。</li>
-<li>导航被确认。</li>
-<li>调用全局的 afterEach 钩子。</li>
-<li>触发 DOM 更新。</li>
-<li>用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。</li>
-</ol>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/15/vue-router/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1626,238 +1736,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/03/12/正则表达式常用元字符速查/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="豆">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="豆豆豆">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/12/正则表达式常用元字符速查/" itemprop="url">正则表达式常用元字符速查</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T22:05:29+08:00">2018-03-12</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>常用元字符</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">代码</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">.</td>
-<td style="text-align:left">匹配除换行符以外的任意字符</td>
-</tr>
-<tr>
-<td style="text-align:left">\w</td>
-<td style="text-align:left">匹配字母或数字或下划线或汉字</td>
-</tr>
-<tr>
-<td style="text-align:left">\s</td>
-<td style="text-align:left">匹配任意的空白符</td>
-</tr>
-<tr>
-<td style="text-align:left">\d</td>
-<td style="text-align:left">匹配数字</td>
-</tr>
-<tr>
-<td style="text-align:left">\b</td>
-<td style="text-align:left">匹配单词的开始或结束</td>
-</tr>
-<tr>
-<td style="text-align:left">^</td>
-<td style="text-align:left">匹配字符串的开始</td>
-</tr>
-<tr>
-<td style="text-align:left">$</td>
-<td style="text-align:left">匹配字符串的结束</td>
-</tr>
-</tbody>
-</table>
-<p><strong>常用限定符</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">代码</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">*</td>
-<td style="text-align:left">重复零次或更多次</td>
-</tr>
-<tr>
-<td style="text-align:left">+</td>
-<td style="text-align:left">重复一次或更多次</td>
-</tr>
-<tr>
-<td style="text-align:left">?</td>
-<td style="text-align:left">重复零次或一次</td>
-</tr>
-<tr>
-<td style="text-align:left">{n}</td>
-<td style="text-align:left">重复n次</td>
-</tr>
-<tr>
-<td style="text-align:left">{n,}</td>
-<td style="text-align:left">重复n次或更多次</td>
-</tr>
-<tr>
-<td style="text-align:left">{n,m}</td>
-<td style="text-align:left">重复n到m次</td>
-</tr>
-</tbody>
-</table>
-<p><strong>反义</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">代码</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">\W</td>
-<td style="text-align:left">匹配任意不是字母，数字，下划线，汉字的字符</td>
-</tr>
-<tr>
-<td style="text-align:left">\S</td>
-<td style="text-align:left">匹配任意不是空白符的字符</td>
-</tr>
-<tr>
-<td style="text-align:left">\D</td>
-<td style="text-align:left">匹配任意非数字的字符</td>
-</tr>
-<tr>
-<td style="text-align:left">\B</td>
-<td style="text-align:left">匹配不是单词开头或结束的位置</td>
-</tr>
-<tr>
-<td style="text-align:left">[^x]</td>
-<td style="text-align:left">配除了x以外的任意字符</td>
-</tr>
-<tr>
-<td style="text-align:left">[^aeiou]</td>
-<td style="text-align:left">匹配除了aeiou这几个字母以外的任</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1909,7 +1787,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
