@@ -10,16 +10,16 @@
       
       <categories>
           
-          <category> “设计模式” </category>
+          <category> 设计模式 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> vue </tag>
+            <tag> Vue </tag>
             
-            <tag> react </tag>
+            <tag> React </tag>
             
         </tags>
       
@@ -118,7 +118,7 @@
       
         <tags>
             
-            <tag> vue </tag>
+            <tag> Vue </tag>
             
         </tags>
       
@@ -139,7 +139,7 @@
       
         <tags>
             
-            <tag> vue </tag>
+            <tag> Vue </tag>
             
         </tags>
       
@@ -160,9 +160,9 @@
       
         <tags>
             
-            <tag> vue </tag>
+            <tag> Vue </tag>
             
-            <tag> vuex </tag>
+            <tag> Vuex </tag>
             
         </tags>
       
@@ -183,7 +183,7 @@
       
         <tags>
             
-            <tag> vue </tag>
+            <tag> Vue </tag>
             
         </tags>
       
@@ -204,7 +204,7 @@
       
         <tags>
             
-            <tag> vue </tag>
+            <tag> Vue </tag>
             
         </tags>
       
@@ -225,7 +225,7 @@
       
         <tags>
             
-            <tag> vue </tag>
+            <tag> Vue </tag>
             
         </tags>
       
@@ -246,7 +246,7 @@
       
         <tags>
             
-            <tag> vue </tag>
+            <tag> Vue </tag>
             
         </tags>
       
@@ -420,7 +420,7 @@
       
         <tags>
             
-            <tag> node </tag>
+            <tag> Node </tag>
             
         </tags>
       
