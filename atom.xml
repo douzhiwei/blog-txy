@@ -80,6 +80,30 @@
   </entry>
   
   <entry>
+    <title>vue实例下挂载的常用方法</title>
+    <link href="http://douzhiwei.top/2018/03/22/vue%E5%AE%9E%E4%BE%8B%E4%B8%8B%E6%8C%82%E8%BD%BD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/"/>
+    <id>http://douzhiwei.top/2018/03/22/vue实例下挂载的常用方法/</id>
+    <published>2018-03-22T13:16:18.000Z</published>
+    <updated>2018-03-27T07:01:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>vue实例下有很多方法,有的时候还是非常有用的,先创建一个vue实例</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    template: <span class="string">'&lt;div ref="div"&gt;&#123;&#123;text&#125;&#125; &#123;&#123;obj.a&#125;&#125;&lt;/div&gt;'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        text: <span class="number">0</span>,</span><br><span class="line">        obj: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// watch: &#123;</span></span><br><span class="line">    <span class="comment">//   text (newText, oldText) &#123;</span></span><br><span class="line">    <span class="comment">//     console.log(`$&#123;newText&#125; : $&#123;oldText&#125;`)</span></span><br><span class="line">    <span class="comment">//   &#125;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.$mount(<span class="string">'#app'</span>)</span><br></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1.</span> app.$data 实例下的data将返回  </span><br><span class="line">    data: &#123;</span><br><span class="line">        text: <span class="number">0</span>,</span><br><span class="line">        obj: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="number">2.</span> app.$props返回传入的props,这里会返回<span class="literal">undefined</span></span><br><span class="line"><span class="number">3.</span> app.$el输出&lt;div&gt;<span class="number">0</span>&lt;<span class="regexp">/div&gt;`</span></span><br><span class="line"><span class="regexp">4. app.$options,返回挂载在vue实例上的好几个属性和方法</span></span><br><span class="line"><span class="regexp">5. app.$root 返回 app</span></span><br><span class="line"><span class="regexp">6. app.$children 返回[]</span></span><br><span class="line"><span class="regexp">7. app.$slots返回&#123;&#125;</span></span><br><span class="line"><span class="regexp">8. app.$scopedSlots返回&#123;&#125;</span></span><br><span class="line"><span class="regexp">9. app.$refs 返回 div</span></span><br><span class="line"><span class="regexp">10. app.$isServer 返回false,这个一般在ssr的时候用到</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;vue实例下有很多方法,有的时候还是非常有用的,先创建一个vue实例&lt;/p&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;sp
+      
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="http://douzhiwei.top/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ES6进阶</title>
     <link href="http://douzhiwei.top/2018/03/21/ES6%E8%BF%9B%E9%98%B6/"/>
     <id>http://douzhiwei.top/2018/03/21/ES6进阶/</id>
@@ -565,35 +589,6 @@
     
     
       <category term="flex" scheme="http://douzhiwei.top/tags/flex/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>exec,match,replace,test方法对比</title>
-    <link href="http://douzhiwei.top/2018/03/09/exec-match-replace-test%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/"/>
-    <id>http://douzhiwei.top/2018/03/09/exec-match-replace-test方法对比/</id>
-    <published>2018-03-09T03:10:00.000Z</published>
-    <updated>2018-03-26T07:38:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>注：pattern 为RegExp的实例, str 为String的实例</strong></p><table><thead><tr><th>用法</th><th style="text-align:center">说明</th><th style="text-align:center">返回值</th></tr></thead><tbody><tr><td>pattern.test(str)</td><td style="text-align:center">判断str是否包含匹配结果</td><td style="text-align:center">包含返回true，不包含返回false</td></tr><tr><td>pattern.exec(str)</td><td style="text-align:center">根据pattern对str进行正则匹配</td><td style="text-align:center">返回匹配结果数组,如匹配不到返回null</td></tr><tr><td>str.match(pattern)</td><td style="text-align:center">根据pattern对str进行正则匹配</td><td style="text-align:center">返回匹配结果数组,如匹配不到返回null</td></tr><tr><td>str.replace(pattern, replacement)</td><td style="text-align:center">根据pattern进行正则匹配,把匹配结果替换为replacement</td><td style="text-align:center">一个新的字符串</td></tr></tbody></table>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;strong&gt;注：pattern 为RegExp的实例, str 为String的实例&lt;/strong&gt;&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;用法&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;说明&lt;/th&gt;
-&lt;th styl
-      
-    
-    </summary>
-    
-      <category term="js易忘知识点" scheme="http://douzhiwei.top/categories/js%E6%98%93%E5%BF%98%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
-    
     
   </entry>
   
