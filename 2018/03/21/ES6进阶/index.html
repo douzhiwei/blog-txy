@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="豆豆豆">
 <meta property="og:description" content="let和const作用域的概念 在es5中只有全局作用域和函数作用域 在es6中新增块作用域  如何使用let和const直接看代码  let  123456789101112// 块作用域for(let i=1; i&amp;lt;3; i++)&amp;#123;console.log(i) //1 2&amp;#125;console.log(i) // ReferenceError 这里为啥会报这个错误呢1.le">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-27T02:58:14.000Z">
+<meta property="og:updated_time" content="2018-03-27T03:00:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6进阶">
 <meta name="twitter:description" content="let和const作用域的概念 在es5中只有全局作用域和函数作用域 在es6中新增块作用域  如何使用let和const直接看代码  let  123456789101112// 块作用域for(let i=1; i&amp;lt;3; i++)&amp;#123;console.log(i) //1 2&amp;#125;console.log(i) // ReferenceError 这里为啥会报这个错误呢1.le">
@@ -378,6 +378,7 @@
 <li>let</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 块作用域</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">1</span>; i&lt;<span class="number">3</span>; i++)&#123;</span><br><span class="line"><span class="built_in">console</span>.log(i) <span class="comment">//1 2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(i) <span class="comment">// ReferenceError 这里为啥会报这个错误呢</span></span><br><span class="line"><span class="number">1.</span><span class="keyword">let</span>声明的是块作用域</span><br><span class="line"><span class="number">2.</span>这里找不到i应该报<span class="literal">undefined</span>的啊，因为在es6中强制使用严格模式，变量未定义直接引用就会报引用异常。也就是说自动使用了</span><br><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 不能重复定义</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">2</span> <span class="comment">// 会报Duplicate declaration这个错误，因为let声明的变量不能重复定义</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <ul>
 <li>const</li>
 <li>也是块作用域和let一样</li>
