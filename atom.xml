@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://douzhiwei.top/"/>
-  <updated>2018-03-26T10:05:37.000Z</updated>
+  <updated>2018-03-26T09:57:34.000Z</updated>
   <id>http://douzhiwei.top/</id>
   
   <author>
@@ -15,24 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>vue的mvvm以及vue的实现流程</title>
-    <link href="http://douzhiwei.top/2018/03/26/vue%E7%9A%84mvvm%E4%BB%A5%E5%8F%8Avue%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B/"/>
-    <id>http://douzhiwei.top/2018/03/26/vue的mvvm以及vue的实现流程/</id>
-    <published>2018-03-26T10:05:13.000Z</published>
-    <updated>2018-03-26T10:05:37.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="“设计模式”" scheme="http://douzhiwei.top/categories/%E2%80%9C%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%9D/"/>
-    
-    
-      <category term="vue" scheme="http://douzhiwei.top/tags/vue/"/>
-    
-  </entry>
   
   <entry>
     <title>vdom</title>
@@ -124,6 +106,35 @@
     
     
       <category term="ES6" scheme="http://douzhiwei.top/tags/ES6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MVVM</title>
+    <link href="http://douzhiwei.top/2018/03/20/MVVM/"/>
+    <id>http://douzhiwei.top/2018/03/20/MVVM/</id>
+    <published>2018-03-20T13:03:24.000Z</published>
+    <updated>2018-03-27T03:29:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>要说mvvm那得先从这几个方面说起</p><h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h2><p>做过后端的都知道mvc,mvvm也是从mvc演变而来,看几个图就明白了</p><p><img src="/2018/03/20/MVVM/mvvm/mvc-01.png" alt=""></p><ul><li>M - Model 数据</li><li>V - View 视图、界面</li><li>C - Controller 控制器、逻辑处理</li></ul><a id="more"></a><p><strong>mvc一般都是这样流转的,也有mpc等等,在这就说mvc了</strong></p><p><img src="/2018/03/20/MVVM/mvvm/mvc-02.png" alt=""></p><ol><li>用户操作view,也就是页面</li><li>触发Controller</li><li>Controller改变Model的数据</li><li>View发生变化</li></ol><h2 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h2><ul><li>Model - 模型、数据</li><li>View - 视图、模板（视图和模型是分离的）</li><li>ViewModel - 连接 Model 和 View </li></ul><p>先看一下官方给的图</p><p><img src="/2018/03/20/MVVM/mvvm/mvvm-01.png" alt=""></p><p>看一个代码实例</p><p><img src="/2018/03/20/MVVM/mvvm/mvvm-02.png" alt=""></p><p>其实vm就是view和model的桥</p><p><strong>mvvm一般是这样流转的</strong></p><ol><li>用户操作view,vm会检测到然后改变model</li><li>model变化 直接影响view</li><li>vm 发生变法,model和view豆跟着变化</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;要说mvvm那得先从这几个方面说起&lt;/p&gt;
+&lt;h2 id=&quot;MVC&quot;&gt;&lt;a href=&quot;#MVC&quot; class=&quot;headerlink&quot; title=&quot;MVC&quot;&gt;&lt;/a&gt;MVC&lt;/h2&gt;&lt;p&gt;做过后端的都知道mvc,mvvm也是从mvc演变而来,看几个图就明白了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2018/03/20/MVVM/mvvm/mvc-01.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;M - Model 数据&lt;/li&gt;
+&lt;li&gt;V - View 视图、界面&lt;/li&gt;
+&lt;li&gt;C - Controller 控制器、逻辑处理&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="设计模式" scheme="http://douzhiwei.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="vue" scheme="http://douzhiwei.top/tags/vue/"/>
     
   </entry>
   
