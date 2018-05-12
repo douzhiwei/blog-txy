@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.5" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=6.0.5">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=6.0.5">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=6.0.5">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=6.0.5" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.5',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="小游戏," />
+
+
+<meta name="description" content="今年年初的时候微信出了小游戏,最近很感兴趣,来研究一下说到游戏,必然要说到游戏的设计模式,以下是我在网上学习和自己的见解,不一定完整或者正确,只是一个思路  Director.js游戏的导演,这控制所有的游戏行为  DataStore.js游戏的数据池,用来读取和写入存储数据  ResourceLoader.js游戏的资源加载器,作用是在游戏逻辑运行之前,加载所有的资源,这个其实很重要,后面详细说">
+<meta name="keywords" content="小游戏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小游戏尝鲜">
+<meta property="og:url" content="http://douzhiwei.top/2018/03/29/微信小游戏尝鲜/index.html">
+<meta property="og:site_name" content="豆豆豆">
+<meta property="og:description" content="今年年初的时候微信出了小游戏,最近很感兴趣,来研究一下说到游戏,必然要说到游戏的设计模式,以下是我在网上学习和自己的见解,不一定完整或者正确,只是一个思路  Director.js游戏的导演,这控制所有的游戏行为  DataStore.js游戏的数据池,用来读取和写入存储数据  ResourceLoader.js游戏的资源加载器,作用是在游戏逻辑运行之前,加载所有的资源,这个其实很重要,后面详细说">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-12T04:03:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信小游戏尝鲜">
+<meta name="twitter:description" content="今年年初的时候微信出了小游戏,最近很感兴趣,来研究一下说到游戏,必然要说到游戏的设计模式,以下是我在网上学习和自己的见解,不一定完整或者正确,只是一个思路  Director.js游戏的导演,这控制所有的游戏行为  DataStore.js游戏的数据池,用来读取和写入存储数据  ResourceLoader.js游戏的资源加载器,作用是在游戏逻辑运行之前,加载所有的资源,这个其实很重要,后面详细说">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="豆豆豆" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://douzhiwei.top/2018/03/29/微信小游戏尝鲜/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>微信小游戏尝鲜 | 豆豆豆</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">豆豆豆</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学无止境</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/03/29/微信小游戏尝鲜/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="豆">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="豆豆豆">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微信小游戏尝鲜</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-29T10:49:45+08:00">2018-03-29</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/微信/" itemprop="url" rel="index"><span itemprop="name">微信</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今年年初的时候微信出了小游戏,最近很感兴趣,来研究一下<br>说到游戏,必然要说到游戏的设计模式,以下是我在网上学习和自己的见解,不一定完整或者正确,只是一个思路</p>
+<ul>
+<li><p><code>Director.js</code>游戏的导演,这控制所有的游戏行为</p>
+</li>
+<li><p><code>DataStore.js</code>游戏的数据池,用来读取和写入存储数据</p>
+</li>
+<li><p><code>ResourceLoader.js</code>游戏的资源加载器,作用是在游戏逻辑运行之前,加载所有的资源,这个其实很重要,后面详细说</p>
+</li>
+<li><p><code>Resources.js</code>游戏的资源的数据集合,供<code>ResourceLoader.js</code>使用</p>
+</li>
+<li><p><code>Sprite.js</code>游戏的精灵类,wx里面在不用游戏库的时候其实就是canvas,这里就开始使用面向对象了</p>
+</li>
+</ul>
+<p>接下来,逐一看一下</p>
+<p>###Director.js</p>
+<p>导演类，控制游戏的逻辑</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;DataStore&#125; <span class="keyword">from</span> <span class="string">"./base/DataStore.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;UpPencil&#125; <span class="keyword">from</span> <span class="string">"./runtime/UpPencil.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;DownPencil&#125; <span class="keyword">from</span> <span class="string">"./runtime/DownPencil.js"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Director</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里使用静态方法 单例模式,保证游戏只有一个导演</span></span><br><span class="line">    <span class="keyword">static</span> getInstance() &#123;</span><br><span class="line">        <span class="keyword">if</span> (!Director.instance) &#123;</span><br><span class="line">            Director.instance = <span class="keyword">new</span> Director()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Director.instance</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="comment">// 构造器  获取数据池的单例对象</span></span><br><span class="line">        <span class="keyword">this</span>.dataStore = DataStore.getInstance()</span><br><span class="line">        <span class="keyword">this</span>.moveSpeed = <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    createPencil() &#123;</span><br><span class="line">        <span class="comment">// 这里 创建 水管 /8 /2 是试出来的</span></span><br><span class="line">        <span class="keyword">const</span> minTop = DataStore.getInstance().canvas.height / <span class="number">8</span></span><br><span class="line">        <span class="keyword">const</span> maxTop = DataStore.getInstance().canvas.height / <span class="number">2</span></span><br><span class="line">        <span class="keyword">const</span> top = minTop + <span class="built_in">Math</span>.random() * (maxTop - minTop)</span><br><span class="line">        <span class="keyword">this</span>.dataStore.get(<span class="string">'pencils'</span>).push(<span class="keyword">new</span> UpPencil(top))</span><br><span class="line">        <span class="keyword">this</span>.dataStore.get(<span class="string">'pencils'</span>).push(<span class="keyword">new</span> DownPencil(top))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    birdsEvent() &#123;</span><br><span class="line">        <span class="comment">// 点击小鸟的事件</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= <span class="number">2</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">this</span>.dataStore.get(<span class="string">'birds'</span>).y[i] =</span><br><span class="line">                <span class="keyword">this</span>.dataStore.get(<span class="string">'birds'</span>).birdsY[i]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.dataStore.get(<span class="string">'birds'</span>).time = <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断小鸟是否和铅笔撞击</span></span><br><span class="line">    <span class="keyword">static</span> isStrike(bird, pencil) &#123;</span><br><span class="line">        <span class="keyword">let</span> s = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (bird.top &gt; pencil.bottom ||</span><br><span class="line">            bird.bottom &lt; pencil.top ||</span><br><span class="line">            bird.right &lt; pencil.left ||</span><br><span class="line">            bird.left &gt; pencil.right</span><br><span class="line">        ) &#123;</span><br><span class="line">            s = <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> !s</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断小鸟是否撞击地板和铅笔</span></span><br><span class="line">    check() &#123;</span><br><span class="line">        <span class="keyword">const</span> birds = <span class="keyword">this</span>.dataStore.get(<span class="string">'birds'</span>)</span><br><span class="line">        <span class="keyword">const</span> land = <span class="keyword">this</span>.dataStore.get(<span class="string">'land'</span>)</span><br><span class="line">        <span class="keyword">const</span> pencils = <span class="keyword">this</span>.dataStore.get(<span class="string">'pencils'</span>)</span><br><span class="line">        <span class="keyword">const</span> score = <span class="keyword">this</span>.dataStore.get(<span class="string">'score'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//地板的撞击判断</span></span><br><span class="line">        <span class="keyword">if</span> (birds.birdsY[<span class="number">0</span>] + birds.birdsHeight[<span class="number">0</span>] &gt;= land.y) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'撞击地板啦'</span>)</span><br><span class="line">            <span class="keyword">this</span>.isGameOver = <span class="literal">true</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//小鸟的边框模型</span></span><br><span class="line">        <span class="keyword">const</span> birdsBorder = &#123;</span><br><span class="line">            top: birds.y[<span class="number">0</span>],</span><br><span class="line">            bottom: birds.birdsY[<span class="number">0</span>] + birds.birdsHeight[<span class="number">0</span>],</span><br><span class="line">            left: birds.birdsX[<span class="number">0</span>],</span><br><span class="line">            right: birds.birdsX[<span class="number">0</span>] + birds.birdsWidth[<span class="number">0</span>]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> length = pencils.length</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            <span class="keyword">const</span> pencil = pencils[i]</span><br><span class="line">            <span class="keyword">const</span> pencilBorder = &#123;</span><br><span class="line">                top: pencil.y,</span><br><span class="line">                bottom: pencil.y + pencil.height,</span><br><span class="line">                left: pencil.x,</span><br><span class="line">                right: pencil.x + pencil.width</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (Director.isStrike(birdsBorder, pencilBorder)) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'撞到水管啦'</span>)</span><br><span class="line">                <span class="keyword">this</span>.isGameOver = <span class="literal">true</span></span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//加分逻辑</span></span><br><span class="line">        <span class="keyword">if</span> (birds.birdsX[<span class="number">0</span>] &gt; pencils[<span class="number">0</span>].x + pencils[<span class="number">0</span>].width</span><br><span class="line">            &amp;&amp; score.isScore) &#123;</span><br><span class="line">            wx.vibrateShort(&#123;</span><br><span class="line">                success: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'振动成功'</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            score.isScore = <span class="literal">false</span>;</span><br><span class="line">            score.scoreNumber++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    run() &#123;</span><br><span class="line">        <span class="keyword">this</span>.check()</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.isGameOver) &#123;</span><br><span class="line">            <span class="comment">// 如果游戏没结束 画地板</span></span><br><span class="line">            <span class="keyword">this</span>.dataStore.get(<span class="string">'background'</span>).draw()</span><br><span class="line">            <span class="comment">// 获取铅笔</span></span><br><span class="line">            <span class="keyword">const</span> pencils = <span class="keyword">this</span>.dataStore.get(<span class="string">'pencils'</span>)</span><br><span class="line">            <span class="keyword">if</span> (pencils[<span class="number">0</span>].x + pencils[<span class="number">0</span>].width &lt;= <span class="number">0</span> &amp;&amp;</span><br><span class="line">                pencils.length === <span class="number">4</span>) &#123;</span><br><span class="line">                pencils.shift()</span><br><span class="line">                pencils.shift()</span><br><span class="line">                <span class="keyword">this</span>.dataStore.get(<span class="string">'score'</span>).isScore = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 创建 水管对象</span></span><br><span class="line">            <span class="keyword">if</span> (pencils[<span class="number">0</span>].x &lt;= (DataStore.getInstance().canvas.width - pencils[<span class="number">0</span>].width) / <span class="number">2</span> &amp;&amp;</span><br><span class="line">                pencils.length === <span class="number">2</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>.createPencil()</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 一个一个画 水管</span></span><br><span class="line">            <span class="keyword">this</span>.dataStore.get(<span class="string">'pencils'</span>).forEach(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">                value.draw()</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="comment">// 画 地板</span></span><br><span class="line">            <span class="keyword">this</span>.dataStore.get(<span class="string">'land'</span>).draw()</span><br><span class="line">            <span class="comment">// 画 分数</span></span><br><span class="line">            <span class="keyword">this</span>.dataStore.get(<span class="string">'score'</span>).draw()</span><br><span class="line">            <span class="comment">// 画鸟</span></span><br><span class="line">            <span class="keyword">this</span>.dataStore.get(<span class="string">'birds'</span>).draw()</span><br><span class="line">            <span class="comment">// 动画帧</span></span><br><span class="line">            <span class="keyword">let</span> timer = requestAnimationFrame(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.run())</span><br><span class="line">            <span class="keyword">this</span>.dataStore.put(<span class="string">'timer'</span>, timer)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 注意  这里的 画的对象是有先后顺序的 要先画 最底层的 canvas 是一层一层的渲染的</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'游戏结束'</span>)</span><br><span class="line">            <span class="comment">// 游戏结束 画 开始按钮</span></span><br><span class="line">            <span class="keyword">this</span>.dataStore.get(<span class="string">'startButton'</span>).draw()</span><br><span class="line">            <span class="comment">// 清除动画</span></span><br><span class="line">            <span class="comment">// 这里说一下 游戏的动画 千万不要使用settimeout 性能会很差 使用requestAnimationFrame 会根据系统的性能 自动的设置 时间间隔</span></span><br><span class="line">            cancelAnimationFrame(<span class="keyword">this</span>.dataStore.get(<span class="string">'timer'</span>))</span><br><span class="line">            <span class="comment">// 销毁数据池 释放内存</span></span><br><span class="line">            <span class="keyword">this</span>.dataStore.destroy()</span><br><span class="line">            <span class="comment">//触发微信小游戏垃圾回收</span></span><br><span class="line">            wx.triggerGC()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="DataStore-js"><a href="#DataStore-js" class="headerlink" title="DataStore.js"></a>DataStore.js</h3><p>变量缓存器，方便我们在不同的类中访问和修改变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">DataStore</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建单例模式 之前已经说过</span></span><br><span class="line">    <span class="keyword">static</span> getInstance() &#123;</span><br><span class="line">        <span class="keyword">if</span> (!DataStore.instance) &#123;</span><br><span class="line">            DataStore.instance = <span class="keyword">new</span> DataStore()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> DataStore.instance</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="comment">// 创建一个map 数据类型</span></span><br><span class="line">        <span class="keyword">this</span>.map = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    put(key, value) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> value === <span class="string">'function'</span>) &#123;</span><br><span class="line">            value = <span class="keyword">new</span> value()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.map.set(key, value)</span><br><span class="line">        <span class="comment">// 链式操作</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    get(key) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.map.get(key)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    destroy() &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> <span class="keyword">this</span>.map.values()) &#123;</span><br><span class="line">            value = <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ResourceLoader-js"><a href="#ResourceLoader-js" class="headerlink" title="ResourceLoader.js"></a>ResourceLoader.js</h3><p>资源文件加载器，确保canvas在图片资源加载完成后才进行渲染</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;Resources&#125; <span class="keyword">from</span> <span class="string">"./Resources.js"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">ResourceLoader</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.map = <span class="keyword">new</span> <span class="built_in">Map</span>(Resources)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> <span class="keyword">this</span>.map) &#123;</span><br><span class="line">            <span class="keyword">const</span> image = wx.createImage()</span><br><span class="line">            image.src = value</span><br><span class="line">            <span class="keyword">this</span>.map.set(key, image)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    onLoaded(cb) &#123;</span><br><span class="line">        <span class="keyword">let</span> loadedCount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> <span class="keyword">this</span>.map.values()) &#123;</span><br><span class="line">            value.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                loadedCount++</span><br><span class="line">                <span class="keyword">if</span> (loadedCount &gt;= <span class="keyword">this</span>.map.size) &#123;</span><br><span class="line">                    cb(<span class="keyword">this</span>.map)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> create() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResourceLoader()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Sprite-js"><a href="#Sprite-js" class="headerlink" title="Sprite.js"></a>Sprite.js</h3><p>精灵的基类，负责初始化精灵加载的资源和大小以及位置 ,就是canvas的draw方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;DataStore&#125; <span class="keyword">from</span> <span class="string">"./DataStore.js"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Sprite</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>(img = null,</span><br><span class="line">                srcX = 0,</span><br><span class="line">                srcY = 0,</span><br><span class="line">                srcW = 0,</span><br><span class="line">                srcH = 0,</span><br><span class="line">                x = 0, y = 0,</span><br><span class="line">                width = 0, height = 0) &#123;</span><br><span class="line">        <span class="keyword">this</span>.dataStore = DataStore.getInstance()</span><br><span class="line">        <span class="keyword">this</span>.ctx = <span class="keyword">this</span>.dataStore.ctx</span><br><span class="line">        <span class="keyword">this</span>.img = img</span><br><span class="line">        <span class="keyword">this</span>.srcX = srcX</span><br><span class="line">        <span class="keyword">this</span>.srcY = srcY</span><br><span class="line">        <span class="keyword">this</span>.srcW = srcW</span><br><span class="line">        <span class="keyword">this</span>.srcH = srcH</span><br><span class="line">        <span class="keyword">this</span>.x = x</span><br><span class="line">        <span class="keyword">this</span>.y = y</span><br><span class="line">        <span class="keyword">this</span>.width = width</span><br><span class="line">        <span class="keyword">this</span>.height = height</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> getImage(key)&#123;</span><br><span class="line">        <span class="keyword">return</span> DataStore.getInstance().res.get(key)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * img 传入Image对象</span></span><br><span class="line"><span class="comment">     * srcX 要剪裁的起始X坐标</span></span><br><span class="line"><span class="comment">     * srcY 要剪裁的起始Y坐标</span></span><br><span class="line"><span class="comment">     * srcW 剪裁的宽度</span></span><br><span class="line"><span class="comment">     * srcH 剪裁的高度</span></span><br><span class="line"><span class="comment">     * x 放置的x坐标</span></span><br><span class="line"><span class="comment">     * y 放置的y坐标</span></span><br><span class="line"><span class="comment">     * width 要使用的宽度</span></span><br><span class="line"><span class="comment">     * height 要使用的高度</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    draw(img = <span class="keyword">this</span>.img,</span><br><span class="line">         srcX = <span class="keyword">this</span>.srcX,</span><br><span class="line">         srcY = <span class="keyword">this</span>.srcY,</span><br><span class="line">         srcW = <span class="keyword">this</span>.srcW,</span><br><span class="line">         srcH = <span class="keyword">this</span>.srcH,</span><br><span class="line">         x = <span class="keyword">this</span>.x,</span><br><span class="line">         y = <span class="keyword">this</span>.y,</span><br><span class="line">         width = <span class="keyword">this</span>.width,</span><br><span class="line">         height = <span class="keyword">this</span>.height) &#123;</span><br><span class="line">        <span class="keyword">this</span>.ctx.drawImage(</span><br><span class="line">            img,</span><br><span class="line">            srcX,</span><br><span class="line">            srcY,</span><br><span class="line">            srcW,</span><br><span class="line">            srcH,</span><br><span class="line">            x,</span><br><span class="line">            y,</span><br><span class="line">            width,</span><br><span class="line">            height</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="再看一个Land-js-绘制地板的"><a href="#再看一个Land-js-绘制地板的" class="headerlink" title="再看一个Land.js,绘制地板的"></a>再看一个Land.js,绘制地板的</h3><p>这就是继承Sprite,然后根据相关的逻辑进行draw</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不断移动的陆地</span></span><br><span class="line"><span class="keyword">import</span> &#123;Sprite&#125; <span class="keyword">from</span> <span class="string">"../base/Sprite.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;Director&#125; <span class="keyword">from</span> <span class="string">"../Director.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;DataStore&#125; <span class="keyword">from</span> <span class="string">"../base/DataStore.js"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Land</span> <span class="keyword">extends</span> <span class="title">Sprite</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">const</span> image = Sprite.getImage(<span class="string">'land'</span>)</span><br><span class="line">        <span class="keyword">super</span>(image, <span class="number">0</span>, <span class="number">0</span>,</span><br><span class="line">            image.width, image.height,</span><br><span class="line">            <span class="number">0</span>, DataStore.getInstance().canvas.height - image.height,</span><br><span class="line">            image.width, image.height)</span><br><span class="line">        <span class="comment">//地板的水平变化坐标</span></span><br><span class="line">        <span class="keyword">this</span>.landX = <span class="number">0</span></span><br><span class="line">        <span class="comment">//地板的移动速度</span></span><br><span class="line">        <span class="keyword">this</span>.landSpeed = Director.getInstance().moveSpeed</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    draw() &#123;</span><br><span class="line">        <span class="keyword">this</span>.landX = <span class="keyword">this</span>.landX + <span class="keyword">this</span>.landSpeed</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.landX &gt; (<span class="keyword">this</span>.img.width - DataStore.getInstance().canvas.width)) &#123;</span><br><span class="line">            <span class="keyword">this</span>.landX = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">super</span>.draw(<span class="keyword">this</span>.img,</span><br><span class="line">            <span class="keyword">this</span>.srcX,</span><br><span class="line">            <span class="keyword">this</span>.srcY,</span><br><span class="line">            <span class="keyword">this</span>.srcW,</span><br><span class="line">            <span class="keyword">this</span>.srcH,</span><br><span class="line">            -<span class="keyword">this</span>.landX,</span><br><span class="line">            <span class="keyword">this</span>.y,</span><br><span class="line">            <span class="keyword">this</span>.width,</span><br><span class="line">            <span class="keyword">this</span>.height)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最后看wx小游戏的入口文件"><a href="#最后看wx小游戏的入口文件" class="headerlink" title="最后看wx小游戏的入口文件"></a>最后看wx小游戏的入口文件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化整个游戏的精灵，作为游戏开始的入口</span></span><br><span class="line"><span class="keyword">import</span> &#123;ResourceLoader&#125; <span class="keyword">from</span> <span class="string">"./js/base/ResourceLoader.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;BackGround&#125; <span class="keyword">from</span> <span class="string">"./js/runtime/BackGround.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;DataStore&#125; <span class="keyword">from</span> <span class="string">"./js/base/DataStore.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;Director&#125; <span class="keyword">from</span> <span class="string">"./js/Director.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;Land&#125; <span class="keyword">from</span> <span class="string">"./js/runtime/Land.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;Birds&#125; <span class="keyword">from</span> <span class="string">"./js/player/Birds.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;StartButton&#125; <span class="keyword">from</span> <span class="string">"./js/player/StartButton.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;Score&#125; <span class="keyword">from</span> <span class="string">"./js/player/Score.js"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.canvas = wx.createCanvas()</span><br><span class="line">        <span class="keyword">this</span>.ctx = <span class="keyword">this</span>.canvas.getContext(<span class="string">'2d'</span>)</span><br><span class="line">        <span class="keyword">this</span>.dataStore = DataStore.getInstance()</span><br><span class="line">        <span class="keyword">this</span>.director = Director.getInstance()</span><br><span class="line">        <span class="keyword">const</span> loader = ResourceLoader.create()</span><br><span class="line">        loader.onLoaded(<span class="function"><span class="params">map</span> =&gt;</span> <span class="keyword">this</span>.onResourceFirstLoaded(map))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建背景音乐</span></span><br><span class="line">    createBackgroundMusic() &#123;</span><br><span class="line">        <span class="keyword">const</span> bgm = wx.createInnerAudioContext()</span><br><span class="line">        bgm.autoplay = <span class="literal">true</span></span><br><span class="line">        bgm.loop = <span class="literal">true</span></span><br><span class="line">        bgm.src = <span class="string">'audios/bgm.mp3'</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    onResourceFirstLoaded(map) &#123;</span><br><span class="line">        <span class="keyword">this</span>.dataStore.canvas = <span class="keyword">this</span>.canvas</span><br><span class="line">        <span class="keyword">this</span>.dataStore.ctx = <span class="keyword">this</span>.ctx</span><br><span class="line">        <span class="keyword">this</span>.dataStore.res = map</span><br><span class="line">        <span class="keyword">this</span>.createBackgroundMusic()</span><br><span class="line">        <span class="keyword">this</span>.init()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    init() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//首先重置游戏是没有结束的</span></span><br><span class="line">        <span class="keyword">this</span>.director.isGameOver = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">this</span>.dataStore</span><br><span class="line">            .put(<span class="string">'pencils'</span>, [])</span><br><span class="line">            .put(<span class="string">'background'</span>, BackGround)</span><br><span class="line">            .put(<span class="string">'land'</span>, Land)</span><br><span class="line">            .put(<span class="string">'birds'</span>, Birds)</span><br><span class="line">            .put(<span class="string">'score'</span>, Score)</span><br><span class="line">            .put(<span class="string">'startButton'</span>, StartButton)</span><br><span class="line">        <span class="keyword">this</span>.registerEvent()</span><br><span class="line">        <span class="comment">//创建铅笔要在游戏逻辑运行之前</span></span><br><span class="line">        <span class="keyword">this</span>.director.createPencil()</span><br><span class="line">        <span class="keyword">this</span>.director.run()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    registerEvent() &#123;</span><br><span class="line">        wx.onTouchStart(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.director.isGameOver) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'游戏开始'</span>)</span><br><span class="line">                <span class="keyword">this</span>.init()</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.director.birdsEvent()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="总结一波"><a href="#总结一波" class="headerlink" title="总结一波"></a>总结一波</h4><ol>
+<li>面向对象使用</li>
+<li>设计模式的使用</li>
+<li>数据的控制,资源的加载</li>
+<li>canvas的使用</li>
+</ol>
+<blockquote>
+<p>如果看到上面的总结 心中还是有疑问,说明你需要学习一下了,后面我也会自己回忆一下</p>
+</blockquote>
+<p><strong>更多细节以及想运行起来请看源码,同时感谢开放的互联网 <a href="https://github.com/douzhiwei/miniGame" target="_blank" rel="noopener">github</a></strong></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/小游戏/" rel="tag"><i class="fa fa-tag"></i> 小游戏</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/27/vue的实现流程/" rel="next" title="vue的实现流程">
+                <i class="fa fa-chevron-left"></i> vue的实现流程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpg"
+                alt="豆" />
+            
+              <p class="site-author-name" itemprop="name">豆</p>
+              <p class="site-description motion-element" itemprop="description">菜鸟程序员一枚</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DataStore-js"><span class="nav-number">1.</span> <span class="nav-text">DataStore.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ResourceLoader-js"><span class="nav-number">2.</span> <span class="nav-text">ResourceLoader.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sprite-js"><span class="nav-number">3.</span> <span class="nav-text">Sprite.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再看一个Land-js-绘制地板的"><span class="nav-number">4.</span> <span class="nav-text">再看一个Land.js,绘制地板的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后看wx小游戏的入口文件"><span class="nav-number">5.</span> <span class="nav-text">最后看wx小游戏的入口文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结一波"><span class="nav-number">5.1.</span> <span class="nav-text">总结一波</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">豆</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.5"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.5"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.5"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.5"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.5"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
