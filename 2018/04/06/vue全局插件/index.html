@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.5" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=6.0.5">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=6.0.5">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=6.0.5">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=6.0.5" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.5',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="vue," />
+
+
+<meta name="description" content="最近一直在写小程序,有点思念vue了,写个组件玩一玩有这样的一个需求,一个常用的组件,我们希望像jq一样调用方法就能够执行而不是每个页面都通过注册components,每个页面注册components不仅不方便也不美观,自己上代码了,把分析写到代码注释里 index.js 插件的入口1234567891011// vue文件import Notification from &apos;./notificat">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue全局插件">
+<meta property="og:url" content="http://douzhiwei.top/2018/04/06/vue全局插件/index.html">
+<meta property="og:site_name" content="豆豆豆">
+<meta property="og:description" content="最近一直在写小程序,有点思念vue了,写个组件玩一玩有这样的一个需求,一个常用的组件,我们希望像jq一样调用方法就能够执行而不是每个页面都通过注册components,每个页面注册components不仅不方便也不美观,自己上代码了,把分析写到代码注释里 index.js 插件的入口1234567891011// vue文件import Notification from &apos;./notificat">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-18T07:37:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue全局插件">
+<meta name="twitter:description" content="最近一直在写小程序,有点思念vue了,写个组件玩一玩有这样的一个需求,一个常用的组件,我们希望像jq一样调用方法就能够执行而不是每个页面都通过注册components,每个页面注册components不仅不方便也不美观,自己上代码了,把分析写到代码注释里 index.js 插件的入口1234567891011// vue文件import Notification from &apos;./notificat">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="豆豆豆" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://douzhiwei.top/2018/04/06/vue全局插件/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>vue全局插件 | 豆豆豆</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">豆豆豆</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学无止境</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/04/06/vue全局插件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="豆">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="豆豆豆">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue全局插件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T22:02:37+08:00">2018-04-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近一直在写小程序,有点思念vue了,写个组件玩一玩<br>有这样的一个需求,一个常用的组件,我们希望像jq一样调用方法就能够执行而不是每个页面都通过注册components,每个页面注册components不仅不方便也不美观,自己上代码了,把分析写到代码注释里</p>
+<h3 id="index-js-插件的入口"><a href="#index-js-插件的入口" class="headerlink" title="index.js 插件的入口"></a>index.js 插件的入口</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue文件</span></span><br><span class="line"><span class="keyword">import</span> Notification <span class="keyword">from</span> <span class="string">'./notification.vue'</span></span><br><span class="line"><span class="comment">// 需要暴露出去的方法 也就是我们调用组件的方法</span></span><br><span class="line"><span class="keyword">import</span> notify <span class="keyword">from</span> <span class="string">'./function'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (Vue) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 注册组件</span></span><br><span class="line">  Vue.component(Notification.name, Notification)</span><br><span class="line">  <span class="comment">// 把notifi方法挂到vue的实例</span></span><br><span class="line">  Vue.prototype.$notify = notify</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="notification-vue"><a href="#notification-vue" class="headerlink" title="notification.vue"></a>notification.vue</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">transition</span> <span class="attr">name</span>=<span class="string">"fade"</span> @<span class="attr">after-leave</span>=<span class="string">"afterLeave"</span> @<span class="attr">after-enter</span>=<span class="string">"afterEnter"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">"notification"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:style</span>=<span class="string">"style"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">v-show</span>=<span class="string">"visible"</span></span></span><br><span class="line"><span class="tag">      @<span class="attr">mouseenter</span>=<span class="string">"clearTimer"</span></span></span><br><span class="line"><span class="tag">      @<span class="attr">mouseleave</span>=<span class="string">"createTimer"</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span>&#123;&#123;content&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn"</span> @<span class="attr">click</span>=<span class="string">"handleClose"</span>&gt;</span>&#123;&#123;btn&#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript"><span class="comment">// 注意这个name 后面用extend的时候会用</span></span></span><br><span class="line"><span class="javascript">  name: <span class="string">'Notification'</span>,</span></span><br><span class="line"><span class="javascript">  <span class="comment">// props </span></span></span><br><span class="line"><span class="undefined">  props: &#123;</span></span><br><span class="line"><span class="undefined">    content: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">      required: <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    btn: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">      <span class="keyword">default</span>: <span class="string">'关闭'</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  data () &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">      visible: <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  computed: &#123;</span></span><br><span class="line"><span class="undefined">    style () &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> &#123;&#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="javascript">  <span class="comment">// 这个模板文件 很干净 什么都没有 业务不在这处理 实现解耦</span></span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    handleClose (e) &#123;</span></span><br><span class="line"><span class="undefined">      e.preventDefault()</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.$emit(<span class="string">'close'</span>)</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    afterLeave () &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.$emit(<span class="string">'closed'</span>)</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    afterEnter () &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    clearTimer () &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    createTimer () &#123;&#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>  <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">.notification &#123;</span></span><br><span class="line"><span class="undefined">  display: inline-flex;</span></span><br><span class="line"><span class="undefined">  background-color: #303030;</span></span><br><span class="line"><span class="undefined">  color: rgba(255, 255, 255, 1);</span></span><br><span class="line"><span class="undefined">  align-items: center;</span></span><br><span class="line"><span class="undefined">  padding: 20px;</span></span><br><span class="line"><span class="undefined">  min-width: 280px;</span></span><br><span class="line"><span class="undefined">  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);</span></span><br><span class="line"><span class="undefined">  flex-wrap: wrap;</span></span><br><span class="line"><span class="undefined">  transition: all .3s;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">.content &#123;</span></span><br><span class="line"><span class="undefined">  padding: 0</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">.btn &#123;</span></span><br><span class="line"><span class="undefined">  color: #ff4081;</span></span><br><span class="line"><span class="undefined">  padding-left: 24px;</span></span><br><span class="line"><span class="undefined">  margin-left: auto;</span></span><br><span class="line"><span class="undefined">  cursor: pointer;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="func-notification-js"><a href="#func-notification-js" class="headerlink" title="func-notification.js"></a>func-notification.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Notification <span class="keyword">from</span> <span class="string">'./notification.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// 这个使用vue.extends 继承 上面name为Notification的实例</span></span><br><span class="line">  extends: Notification,</span><br><span class="line">  computed: &#123;</span><br><span class="line">  <span class="comment">// 计算style</span></span><br><span class="line">    style () &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        position: <span class="string">'fixed'</span>,</span><br><span class="line">        right: <span class="string">'20px'</span>,</span><br><span class="line">        bottom: <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.verticalOffset&#125;</span>px`</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted () &#123;</span><br><span class="line">    <span class="keyword">this</span>.createTimer()</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">  <span class="comment">// 自动关闭 弹出</span></span><br><span class="line">    createTimer () &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.autoClose)</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.autoClose) &#123;</span><br><span class="line">        <span class="keyword">this</span>.timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.visible = <span class="literal">false</span></span><br><span class="line">        &#125;, <span class="keyword">this</span>.autoClose)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 清楚 timer 释放内存</span></span><br><span class="line">    clearTimer () &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.timer) &#123;</span><br><span class="line">        clearTimeout(<span class="keyword">this</span>.timer)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// transition的 处理函数</span></span><br><span class="line">    afterEnter () &#123;</span><br><span class="line">      <span class="keyword">this</span>.height = <span class="keyword">this</span>.$el.offsetHeight</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeDestory () &#123;</span><br><span class="line">    <span class="keyword">this</span>.clearTimer()</span><br><span class="line">  &#125;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      verticalOffset: <span class="number">0</span>,</span><br><span class="line">      autoClose: <span class="number">3000</span>,</span><br><span class="line">      height: <span class="number">0</span>,</span><br><span class="line">      visible: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="func-notification-js-逻辑处理"><a href="#func-notification-js-逻辑处理" class="headerlink" title="func-notification.js 逻辑处理"></a>func-notification.js 逻辑处理</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Component <span class="keyword">from</span> <span class="string">'./func-notification'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> NotificationConstructor = Vue.extend(Component)</span><br><span class="line"><span class="comment">// 保存实例对象 因为有多个 提示的框框</span></span><br><span class="line"><span class="keyword">const</span> instances = []</span><br><span class="line"><span class="keyword">let</span> seed = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除实例 </span></span><br><span class="line"><span class="keyword">const</span> removeInstance = <span class="function">(<span class="params">instance</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!instance) <span class="keyword">return</span></span><br><span class="line">  <span class="keyword">const</span> len = instances.length</span><br><span class="line">  <span class="keyword">const</span> index = instances.findIndex(<span class="function"><span class="params">inst</span> =&gt;</span> instance.id === inst.id)</span><br><span class="line"></span><br><span class="line">  instances.splice(index, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (len &lt;= <span class="number">1</span>) <span class="keyword">return</span></span><br><span class="line">  <span class="keyword">const</span> removeHeight = instance.vm.height</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = index; i &lt; len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">    instances[i].verticalOffset =</span><br><span class="line">      <span class="built_in">parseInt</span>(instances[i].verticalOffset) - removeHeight - <span class="number">16</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> notify = <span class="function">(<span class="params">options</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;</span><br><span class="line">    autoClose,</span><br><span class="line">    ...rest</span><br><span class="line">  &#125; = options</span><br><span class="line">  <span class="keyword">const</span> instance = <span class="keyword">new</span> NotificationConstructor(&#123;</span><br><span class="line">    propsData: &#123;</span><br><span class="line">      ...rest</span><br><span class="line">    &#125;,</span><br><span class="line">    data: &#123;</span><br><span class="line">      autoClose: autoClose === <span class="literal">undefined</span> ? <span class="number">3000</span> : autoClose</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> id = <span class="string">`notification_<span class="subst">$&#123;seed++&#125;</span>`</span></span><br><span class="line">  instance.id = id</span><br><span class="line">  instance.vm = instance.$mount()</span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(instance.vm.$el)</span><br><span class="line">  instance.vm.visible = <span class="literal">true</span></span><br><span class="line">   <span class="comment">// 其实都很好理解 可能就是以前你没有这样写过</span></span><br><span class="line">  <span class="keyword">let</span> verticalOffset = <span class="number">0</span></span><br><span class="line">  instances.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    verticalOffset += item.$el.offsetHeight + <span class="number">16</span></span><br><span class="line">  &#125;)</span><br><span class="line">  verticalOffset += <span class="number">16</span></span><br><span class="line">  instance.verticalOffset = verticalOffset</span><br><span class="line">  instances.push(instance)</span><br><span class="line">  instance.vm.$on(<span class="string">'closed'</span>, () =&gt; &#123;</span><br><span class="line">    removeInstance(instance)</span><br><span class="line">    <span class="built_in">document</span>.body.removeChild(instance.vm.$el)</span><br><span class="line">    instance.vm.$destroy()</span><br><span class="line">  &#125;)</span><br><span class="line">  instance.vm.$on(<span class="string">'close'</span>, () =&gt; &#123;</span><br><span class="line">    instance.vm.visible = <span class="literal">false</span></span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> instance.vm</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> notify</span><br></pre></td></tr></table></figure>
+<h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">notify () &#123;</span><br><span class="line">              <span class="keyword">this</span>.$notify(&#123;</span><br><span class="line">                  content: <span class="string">`按钮名字<span class="subst">$&#123;<span class="built_in">Math</span>.random().toString(<span class="number">36</span>).slice(<span class="number">2</span>, <span class="number">6</span>)&#125;</span>`</span>,</span><br><span class="line">                  btn: <span class="string">'关闭'</span></span><br><span class="line">              &#125;)</span><br><span class="line">          &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码请点这里</strong><br><a href="https://github.com/douzhiwei/notification-vue.git" target="_blank" rel="noopener">演示以及代码</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/03/js面向对象-继承/" rel="next" title="js面向对象-继承">
+                <i class="fa fa-chevron-left"></i> js面向对象-继承
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpg"
+                alt="豆" />
+            
+              <p class="site-author-name" itemprop="name">豆</p>
+              <p class="site-description motion-element" itemprop="description">菜鸟程序员一枚</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#index-js-插件的入口"><span class="nav-number">1.</span> <span class="nav-text">index.js 插件的入口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#notification-vue"><span class="nav-number">2.</span> <span class="nav-text">notification.vue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#func-notification-js"><span class="nav-number">3.</span> <span class="nav-text">func-notification.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#func-notification-js-逻辑处理"><span class="nav-number">4.</span> <span class="nav-text">func-notification.js 逻辑处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用"><span class="nav-number">5.</span> <span class="nav-text">调用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">豆</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.5"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.5"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.5"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.5"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.5"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
