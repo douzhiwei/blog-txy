@@ -284,6 +284,181 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/04/09/如何抓取页面所有内容/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="豆">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="豆豆豆">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/09/如何抓取页面所有内容/" itemprop="url">如何抓取页面所有内容</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-09T10:57:11+08:00">2018-04-09</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="如何抓取页面所有内容"><a href="#如何抓取页面所有内容" class="headerlink" title="如何抓取页面所有内容"></a>如何抓取页面所有内容</h1><h2 id="基本需求"><a href="#基本需求" class="headerlink" title="基本需求"></a>基本需求</h2><p>抓取页面所有内容主要包括一下内容：</p>
+<ol>
+<li>页面内元素</li>
+</ol>
+<p>页面元素包含服务端直接返回的元素，动态构建的元素</p>
+<ol>
+<li>页面内所有资源</li>
+</ol>
+<p>页面所有资源包含本页面所在域资源以及第三方域资源，同主域的资源也认为第三方域资源，这种资源一般是以绝对路径的方式标识，同域下资源主要有三种表现方式 （以<a href="https://www.baidu.com举例）" target="_blank" rel="noopener">https://www.baidu.com举例）</a></p>
+<p>a). 相对路径<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">image</span> <span class="attr">src</span>=<span class="string">"./image/logo.png"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>b). 绝对路径<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">image</span> <span class="attr">src</span>=<span class="string">"https://www.baidu.com/image/logo.png"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>c). 绝对路径2<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">image</span> <span class="attr">src</span>=<span class="string">"//www.baidu.com/image/logo.png"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这种表示方式会自动根据浏览器打开该页面的协议请求时加入协议（protocol），本地保存后，基于file协议打开同样会加入file:前缀。</p>
+<h2 id="当前实现方案"><a href="#当前实现方案" class="headerlink" title="当前实现方案"></a>当前实现方案</h2><h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><ol>
+<li><p>服务端http get 页面</p>
+</li>
+<li><p>根据服务端响应的html，遍历需要加载的其它资源，比如javascript、image、css、font、media等资源</p>
+</li>
+<li><p>处理html、javascript、css 等文件，进行资源路径替换，保证页面本地化后能正常打开</p>
+</li>
+</ol>
+<h3 id="不足之处"><a href="#不足之处" class="headerlink" title="不足之处"></a>不足之处</h3><ol>
+<li><p>http get 只能拿到原始内容，需要依赖后期再浏览器中加载之后的再渲染（比如依赖本地化的js再次请求数据进行页面构建 或者 直接生成dom进行页面构建）</p>
+</li>
+<li><p>请求后得到的资源文件依赖原本相对路径，如果处理有较高的技术难度，比如使用AMD、CMD等模式加载的文件。由于当前方案抓取资源时对当前资源目录层次全部铺平了（纵向目录已经不存在了，相对路径也会变化），所以需要动态修改（拿应用了AMD加载模式的页面举例）require.config.js 文件的内容，否则会导致页面js 无法正常加载，页面无法正常渲染。</p>
+</li>
+<li><p>对非html页面直接获取的资源，获取的难度较大，这种非html页面直接获取的资源包括，css 文件中引入的字体资源文件以及图片资源文件，js资源文件中引入的资源文件，比如上述2 中描述的AMD、CMD模式实现的按需加载。</p>
+</li>
+</ol>
+<h2 id="新的实现方案"><a href="#新的实现方案" class="headerlink" title="新的实现方案"></a>新的实现方案</h2><p>puppeteer是操作chromnium的上层node api，当浏览器打开一个页面是，可以简单理解细分为如下过程：</p>
+<ol>
+<li>通知浏览器发起请求</li>
+<li>浏览器发起请求</li>
+<li>浏览器获取响应内容</li>
+<li>浏览器把响应内容交给上层渲染引擎</li>
+<li>渲染引擎处理</li>
+</ol>
+<p>在整个过程中，puppeteer提供了一种机制让我们有机会拦截到2和3这两个阶段，基于这点，我们可以做更多的事情，比如我们可以拦截页面的所有请求，可以截获所有的响应，而不用关注请求的去向，因为只要请求发出去了，就能受我们的控制，另外，由于是使用浏览器本身，所以跟直接http get 页面最大的区别在于前者是渲染后的，后者是原始的，前者对SPA或者依靠脚本构建的应用比较友好。</p>
+<p>使用puppeteer实现完全能处理原始方案的不足，新的实现思路如下：</p>
+<ol>
+<li><p>拦截所有网络请求，对资源请求以及构建dom相关请求进行处理</p>
+</li>
+<li><p>对同域名下资源进行相对路径处理，在本地创建对应的相对路径</p>
+</li>
+<li><p>对不同域名下资源（第三方资源）以第三方域名为名建立新的目录，用来存储第三方资源</p>
+</li>
+<li><p>资源处理，处理html资源，css资源以及javascript文件中绝对路径为相对路径（这里绝对路径是指直接引入的cdn等模式路径，相对路径是指对cdn域名本地化目录后的路径）</p>
+</li>
+</ol>
+<h2 id="核心代码说明"><a href="#核心代码说明" class="headerlink" title="核心代码说明"></a>核心代码说明</h2><p>基于上述新的方案，实现的核心代码如下，代码中加入了详细的注释，不再做过多解释，有疑问欢迎留言讨论</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> puppeteer = <span class="built_in">require</span>(<span class="string">'puppeteer'</span>);</span><br><span class="line"><span class="keyword">const</span> URL = <span class="built_in">require</span>(<span class="string">'url'</span>);</span><br><span class="line"><span class="keyword">const</span> md5 = <span class="built_in">require</span>(<span class="string">'md5'</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> shell = <span class="built_in">require</span>(<span class="string">'shelljs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//资源保存目录</span></span><br><span class="line"><span class="keyword">const</span> BASEDIR = <span class="string">'./asserts/'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> start = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化删除清理资源目录，仅测试阶段，因为当前目录为时间戳生成</span></span><br><span class="line">    shell.exec(<span class="string">'rm -rf asserts/'</span>);</span><br><span class="line">    <span class="comment">//因为所有网络请求都会拦截，处理请求和页面资源以及dom构建无关可忽略</span></span><br><span class="line">    <span class="comment">//下面的域名是比较常见的前端采集域名 (有很多没有列出来的)</span></span><br><span class="line">    <span class="keyword">const</span> blackList = [</span><br><span class="line">        <span class="string">'collect.ptengine.cn'</span>, </span><br><span class="line">        <span class="string">'collect.ptengine.jp'</span>,</span><br><span class="line">        <span class="string">'js.ptengine.cn'</span>,</span><br><span class="line">        <span class="string">'js.ptengine.jp'</span>,</span><br><span class="line">        <span class="string">'hm.baidu.com'</span>,</span><br><span class="line">        <span class="string">'api.growingio.com'</span>,</span><br><span class="line">        <span class="string">'www.google-analytics.com'</span>,</span><br><span class="line">        <span class="string">'script.hotjar.com'</span>,</span><br><span class="line">        <span class="string">'vars.hotjar.com'</span></span><br><span class="line">    ];</span><br><span class="line">    <span class="comment">//用来缓存第三方资源（包括css、javascript），在请求没有结束之前，无法获取完整的第三方资源列，无法保证css、javascript中内容替换完整，所以先缓存，请求结束后再统一替换</span></span><br><span class="line">    <span class="keyword">const</span> resourceBufferMap = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">    <span class="comment">//第三方资源服务（域名）列表</span></span><br><span class="line">    <span class="keyword">const</span> thirdPartyList = &#123;&#125;;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> browser = <span class="keyword">await</span> puppeteer.launch();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> page = <span class="keyword">await</span> browser.newPage();</span><br><span class="line">        <span class="comment">//启用请求拦截</span></span><br><span class="line">        <span class="keyword">await</span> page.setRequestInterception(<span class="literal">true</span>);</span><br><span class="line">       <span class="comment">//以博客园为例子进行页面抓取</span></span><br><span class="line">        <span class="keyword">let</span> url = <span class="string">"https://www.cnblogs.com"</span></span><br><span class="line">        <span class="keyword">let</span> docUrl = URL.parse(url);</span><br><span class="line">        <span class="comment">//获取请求地址的域名，用来确定资源是否来自第三方</span></span><br><span class="line">        <span class="keyword">let</span> originUrl = (docUrl.protocol + <span class="string">"//"</span> + docUrl.hostname)</span><br><span class="line">        <span class="comment">//@fixme 每次抓取生成的内容目录名称</span></span><br><span class="line">        <span class="keyword">let</span> md5_prefix = md5(<span class="built_in">Date</span>.now());</span><br><span class="line"></span><br><span class="line">        page.on(<span class="string">'request'</span>, <span class="keyword">async</span> (req) =&gt; &#123;</span><br><span class="line">            <span class="keyword">const</span> whitelist = [<span class="string">'image'</span>, <span class="string">'script'</span>, <span class="string">'stylesheet'</span>, <span class="string">'document'</span>, <span class="string">'font'</span>];</span><br><span class="line">            <span class="comment">//如果请求的是第三方域名，只考虑和页面构建相关的资源</span></span><br><span class="line">            <span class="keyword">if</span> (req.url().indexOf(originUrl) == <span class="number">-1</span> &amp;&amp; !whitelist.includes(req.resourceType())) &#123;</span><br><span class="line">                <span class="keyword">return</span> req.abort();</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//采集黑名单中的内容不处理</span></span><br><span class="line">            <span class="keyword">if</span> (blackList.indexOf(URL.parse(req.url()).host) != <span class="number">-1</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> req.abort();</span><br><span class="line">            &#125;</span><br><span class="line">            req.continue();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        page.on(<span class="string">'response'</span>, <span class="keyword">async</span> res =&gt; &#123;</span><br><span class="line">            <span class="keyword">let</span> request = res.request(),</span><br><span class="line">                resourceUrl = request.url(),</span><br><span class="line">                urlObj = URL.parse(resourceUrl),</span><br><span class="line">                filePath = urlObj.pathname, <span class="comment">//文件路径</span></span><br><span class="line">                dirPath = path.dirname(filePath), <span class="comment">//目录路径</span></span><br><span class="line">                requestMethod = request.method().toUpperCase(), <span class="comment">//请求方法</span></span><br><span class="line">                isSameOrigin = resourceUrl.includes(originUrl); <span class="comment">//是否是同域名请求</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//只考虑get请求资源，其它http verb 对文件资源请求较少</span></span><br><span class="line">            <span class="keyword">if</span> (requestMethod === <span class="string">'GET'</span>) &#123;</span><br><span class="line">                <span class="comment">//如果是同一个域名下的资源，则直接构建目录，下载文件</span></span><br><span class="line">                <span class="comment">//创建路径的方式依据请求本身path结构，保证和原资源网站目录结构完整统一，这样即使有CMD、AMD规范的代码再次执行，require相对路径也不会出现问题。</span></span><br><span class="line">                <span class="keyword">let</span> dirPathCreatedIfNotExists,</span><br><span class="line">                    filePathCreatedIfNotExists;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">let</span> hostname = urlObj.hostname;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (isSameOrigin) &#123;</span><br><span class="line">                    <span class="comment">//构建同域名path</span></span><br><span class="line">                    <span class="comment">//同域名的资源 有时会以//www.xxx.com/images/logo.png 这种方式使用，所以，对这种资源需要特殊处理</span></span><br><span class="line">                    thirdPartyList[<span class="string">`//<span class="subst">$&#123;hostname&#125;</span>`</span>] = <span class="string">''</span>;</span><br><span class="line">                    dirPathCreatedIfNotExists = path.join(BASEDIR, md5_prefix, dirPath);</span><br><span class="line">                    filePathCreatedIfNotExists = path.join(BASEDIR, md5_prefix, filePath);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//第三方资源构建正则表达式，替换http、https、// 三种模式路径为本地目录路径</span></span><br><span class="line">                    thirdPartyList[<span class="string">`(https?:)?//<span class="subst">$&#123;hostname&#125;</span>`</span>] = <span class="string">`/<span class="subst">$&#123;hostname&#125;</span>`</span>;</span><br><span class="line">                    dirPathCreatedIfNotExists = path.join(BASEDIR, md5_prefix, hostname, dirPath);</span><br><span class="line">                    filePathCreatedIfNotExists = path.join(BASEDIR, md5_prefix, hostname, filePath);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//获取扩展名 如果获取不到 则认为不是资源文件</span></span><br><span class="line">                <span class="keyword">if</span> (path.extname(filePathCreatedIfNotExists)) &#123;</span><br><span class="line">                    <span class="comment">//路径不存在，直接创建多级目录</span></span><br><span class="line">                    <span class="keyword">if</span> (!fs.existsSync(dirPathCreatedIfNotExists)) &#123;</span><br><span class="line">                        shell.exec(<span class="string">`mkdir -p <span class="subst">$&#123;dirPathCreatedIfNotExists&#125;</span>`</span>);</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">'create dir'</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (res.ok()) &#123;</span><br><span class="line">                        <span class="keyword">if</span> ((isSameOrigin &amp;&amp; dirPath != <span class="string">'/'</span>) || !isSameOrigin) &#123;</span><br><span class="line">                            <span class="keyword">let</span> needReplace = [<span class="string">'stylesheet'</span>, <span class="string">'script'</span>];</span><br><span class="line">                            <span class="comment">//@fixme toString 可能会有编码问题</span></span><br><span class="line">                            <span class="keyword">let</span> fileContent = (<span class="keyword">await</span> res.buffer()).toString();</span><br><span class="line">                            <span class="comment">//第三方域名还获取，先缓存再处理</span></span><br><span class="line">                            <span class="keyword">if</span> (needReplace.includes(request.resourceType())) &#123;</span><br><span class="line">                                <span class="comment">//js css 文件中可能包含需要替换的内容，需要处理</span></span><br><span class="line">                                <span class="comment">//所以暂时缓存不写入文件</span></span><br><span class="line">                                resourceBufferMap.set(filePathCreatedIfNotExists, fileContent);</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">                                fs.writeFileSync(filePathCreatedIfNotExists, <span class="keyword">await</span> res.buffer());</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> page.goto(url, &#123;</span><br><span class="line">            waitUntil: <span class="string">'networkidle0'</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> content = <span class="keyword">await</span> page.content();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//对css javascript文件 进行替换处理</span></span><br><span class="line">        resourceBufferMap.forEach(<span class="function">(<span class="params">value, key</span>) =&gt;</span> &#123;</span><br><span class="line">            value = applyReplace(value, thirdPartyList);</span><br><span class="line">            fs.writeFileSync(key, value);</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// html 内容处理</span></span><br><span class="line">        content = applyReplace(content, thirdPartyList);</span><br><span class="line"></span><br><span class="line">        fs.writeFileSync(<span class="string">`./asserts/<span class="subst">$&#123;md5_prefix&#125;</span>/index.html`</span>, content);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> page.close();</span><br><span class="line">        <span class="keyword">await</span> browser.close();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(error);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">applyReplace</span>(<span class="params">origin, regList</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> prop <span class="keyword">in</span> regList) &#123;</span><br><span class="line">        <span class="comment">//进行正则全局替换</span></span><br><span class="line">        <span class="keyword">let</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(prop, <span class="string">'g'</span>)</span><br><span class="line">        origin = origin.replace(reg, regList[prop]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> origin;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start();</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上述方案能解决几乎所有原始方案无法解决的问题，但是也并非十全十美，首选，相比原始方案，增加了渲染的步骤，所以性能有所下降；其次如果用户网站比较特殊，比如<a href="https://www.xxx.com/admin" target="_blank" rel="noopener">https://www.xxx.com/admin</a> 这个路径下资源，比如某css文件中有如下写法：’background:url(‘./xxx.bg.png’)’ ，这时路径会找不到，因为在资源路径替换阶段，会替换为hostname，即查找资源是会去根目录去找，导致路径not found，不过这有其它改进的方案，比如可以把同域名的路径做的更灵活一点，可以让接口消费者修改。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/04/06/vue全局插件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1593,159 +1768,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/03/20/mvvm-vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="豆">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="豆豆豆">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/20/mvvm-vue/" itemprop="url">mvvm</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-20T21:03:24+08:00">2018-03-20</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>要说mvvm那得先从这几个方面说起</p>
-<h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h2><p>做过后端的都知道mvc,mvvm也是从mvc演变而来,看几个图就明白了</p>
-<p><img src="/2018/03/20/mvvm-vue/mvc-01.png" alt=""></p>
-<ul>
-<li>M - Model 数据</li>
-<li>V - View 视图、界面</li>
-<li>C - Controller 控制器、逻辑处理</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/20/mvvm-vue/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1797,7 +1819,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
