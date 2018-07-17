@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.5" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=6.0.5">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=6.0.5">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=6.0.5">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=6.0.5" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.5',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="css3," />
+
+
+<meta name="description" content="系统的学习一遍css3,也当是阅读笔记&amp;amp;备忘,感谢大漠的图解css3这本书 ##css3选择器分为5大类如下图 1. 基本选择器基本选择器就不具体展开了,就是E,#id,.class,selector1,selectorN 2. 层次选择器层次包括 后代, 父子, 相邻兄弟, 通用兄弟 , 见下表    选择器 类型 功能     E   F 后代选择器 选择匹配的F元素,且匹配F元素被包">
+<meta name="keywords" content="css3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css3-css3选择器">
+<meta property="og:url" content="http://douzhiwei.top/2018/07/17/css3-css3选择器/index.html">
+<meta property="og:site_name" content="豆豆豆">
+<meta property="og:description" content="系统的学习一遍css3,也当是阅读笔记&amp;amp;备忘,感谢大漠的图解css3这本书 ##css3选择器分为5大类如下图 1. 基本选择器基本选择器就不具体展开了,就是E,#id,.class,selector1,selectorN 2. 层次选择器层次包括 后代, 父子, 相邻兄弟, 通用兄弟 , 见下表    选择器 类型 功能     E   F 后代选择器 选择匹配的F元素,且匹配F元素被包">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://douzhiwei.top/2018/07/17/css3-css3选择器/css-select.png">
+<meta property="og:updated_time" content="2018-07-17T11:28:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css3-css3选择器">
+<meta name="twitter:description" content="系统的学习一遍css3,也当是阅读笔记&amp;amp;备忘,感谢大漠的图解css3这本书 ##css3选择器分为5大类如下图 1. 基本选择器基本选择器就不具体展开了,就是E,#id,.class,selector1,selectorN 2. 层次选择器层次包括 后代, 父子, 相邻兄弟, 通用兄弟 , 见下表    选择器 类型 功能     E   F 后代选择器 选择匹配的F元素,且匹配F元素被包">
+<meta name="twitter:image" content="http://douzhiwei.top/2018/07/17/css3-css3选择器/css-select.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="豆豆豆" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://douzhiwei.top/2018/07/17/css3-css3选择器/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>css3-css3选择器 | 豆豆豆</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">豆豆豆</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学无止境</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://douzhiwei.top/2018/07/17/css3-css3选择器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="豆">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="豆豆豆">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">css3-css3选择器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-17T16:18:00+08:00">2018-07-17</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>系统的学习一遍css3,也当是阅读笔记&amp;备忘,感谢大漠的图解css3这本书</p>
+<p>##css3选择器分为5大类如下图<br><img src="/2018/07/17/css3-css3选择器/css-select.png" alt=""></p>
+<h3 id="1-基本选择器"><a href="#1-基本选择器" class="headerlink" title="1. 基本选择器"></a>1. 基本选择器</h3><p>基本选择器就不具体展开了,就是<code>E,#id,.class,selector1,selectorN</code></p>
+<h3 id="2-层次选择器"><a href="#2-层次选择器" class="headerlink" title="2. 层次选择器"></a>2. 层次选择器</h3><p>层次包括 后代, 父子, 相邻兄弟, 通用兄弟 , 见下表</p>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E   F</td>
+<td style="text-align:center">后代选择器</td>
+<td style="text-align:center">选择匹配的F元素,且匹配F元素被包含在匹配的E元素内</td>
+</tr>
+<tr>
+<td>E &gt; F</td>
+<td style="text-align:center">子代选择器</td>
+<td style="text-align:center">选择匹配的F元素,且匹配的F元素是E的子元素</td>
+</tr>
+<tr>
+<td>E + F</td>
+<td style="text-align:center">相邻兄弟选择器</td>
+<td style="text-align:center">选择匹配的F元素,且F紧临E元素</td>
+</tr>
+<tr>
+<td>E ~ F</td>
+<td style="text-align:center">通用选择器</td>
+<td style="text-align:center">选择匹配的F元素,且匹配位于E元素后所有的F元素</td>
+</tr>
+</tbody>
+</table>
+<p>例子,复制代码在浏览器中打开,自己分析,哈哈哈,为了节省篇幅,浏览器前缀省虑</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en-US"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>使用CSS3层次选择器<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">		*&#123;margin: 0;padding:0;&#125;</span></span><br><span class="line"><span class="undefined">		body &#123;width: 300px;margin: 0 auto;&#125;</span></span><br><span class="line"><span class="undefined">		div&#123;margin:5px;padding:5px;border: 1px solid #ccc;&#125;</span></span><br><span class="line"><span class="undefined">		div div &#123;background: orange;&#125;</span></span><br><span class="line"><span class="undefined">		body &gt; div &#123;background: green;&#125;</span></span><br><span class="line"><span class="undefined">		.active + div &#123;background: lime;&#125;</span></span><br><span class="line"><span class="undefined">		.active ~ div &#123;background: red;&#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>  <span class="attr">class</span>=<span class="string">"active"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!-- 为了说明相邻兄弟选择器，在此处添加一个类名active --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span>4</span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span>5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span>6<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span>7</span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span>8</span><br><span class="line">			<span class="tag">&lt;<span class="name">div</span>&gt;</span>9</span><br><span class="line">				<span class="tag">&lt;<span class="name">div</span>&gt;</span>10<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-动态伪类选择器"><a href="#3-动态伪类选择器" class="headerlink" title="3 动态伪类选择器"></a>3 动态伪类选择器</h3><p>伪类选择器包含一下几种</p>
+<ul>
+<li>E:link</li>
+<li>E:visited</li>
+<li>E:actived</li>
+<li>E:hover</li>
+<li>E:focus</li>
+</ul>
+<p>这比较简单,大家都会的,不展开了</p>
+<h3 id="4-目标伪类选择器"><a href="#4-目标伪类选择器" class="headerlink" title="4 目标伪类选择器"></a>4 目标伪类选择器</h3><p>语法: E:target 选择匹配的E的所有元素,且匹配的元素被相关的url指向<br>例子 css实现手风琴效果</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en-US"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>垂直手风琴<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">.accordionMenu &#123;</span></span><br><span class="line"><span class="undefined">	background: #fff;</span></span><br><span class="line"><span class="undefined">	color:#424242;</span></span><br><span class="line"><span class="undefined">	font: 12px Arial, Verdana, sans-serif;</span></span><br><span class="line"><span class="undefined">	margin:0 auto;</span></span><br><span class="line"><span class="undefined">	padding: 10px;</span></span><br><span class="line"><span class="undefined">	width: 500px;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined">.accordionMenu h2 &#123;</span></span><br><span class="line"><span class="undefined">	margin:5px 0;</span></span><br><span class="line"><span class="undefined">	padding:0;</span></span><br><span class="line"><span class="undefined">	position: relative;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined">.accordionMenu h2:before &#123;</span></span><br><span class="line"><span class="undefined">	border: 5px solid #fff;</span></span><br><span class="line"><span class="undefined">	border-color: #fff transparent transparent;</span></span><br><span class="line"><span class="undefined">	content:"";</span></span><br><span class="line"><span class="undefined">	height: 0;</span></span><br><span class="line"><span class="undefined">	position:absolute;</span></span><br><span class="line"><span class="undefined">	right: 10px;</span></span><br><span class="line"><span class="undefined">	top: 15px;</span></span><br><span class="line"><span class="undefined">	width: 0;</span></span><br><span class="line"><span class="undefined">&#125; </span></span><br><span class="line"><span class="undefined">.accordionMenu h2 a &#123;</span></span><br><span class="line"><span class="undefined">	background: #8f8f8f;</span></span><br><span class="line"><span class="undefined">	background: linear-gradient( top, #cecece, #8f8f8f); </span></span><br><span class="line"><span class="undefined">	border-radius: 5px;</span></span><br><span class="line"><span class="undefined">	color:#424242;</span></span><br><span class="line"><span class="undefined">	display: block;</span></span><br><span class="line"><span class="undefined">	font-size: 13px;</span></span><br><span class="line"><span class="undefined">	font-weight: normal;</span></span><br><span class="line"><span class="undefined">	margin:0;</span></span><br><span class="line"><span class="undefined">	padding:10px 10px;</span></span><br><span class="line"><span class="undefined">	text-shadow: 2px 2px 2px #aeaeae;</span></span><br><span class="line"><span class="undefined">	text-decoration:none;</span></span><br><span class="line"><span class="undefined">&#125; </span></span><br><span class="line"><span class="undefined">.accordionMenu :target h2 a,</span></span><br><span class="line"><span class="undefined">.accordionMenu h2 a:focus,</span></span><br><span class="line"><span class="undefined">.accordionMenu h2 a:hover,</span></span><br><span class="line"><span class="undefined">.accordionMenu h2 a:active &#123;</span></span><br><span class="line"><span class="undefined">	background: #2288dd;</span></span><br><span class="line"><span class="undefined">	background: linear-gradient( top, #6bb2ff, #2288dd);</span></span><br><span class="line"><span class="undefined">	color:#FFF;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined">.accordionMenu p &#123;</span></span><br><span class="line"><span class="undefined">	margin:0;</span></span><br><span class="line"><span class="undefined">	height: 0;</span></span><br><span class="line"><span class="undefined">	overflow: hidden;</span></span><br><span class="line"><span class="undefined">	padding:0 10px;</span></span><br><span class="line"><span class="undefined">	transition: height 0.5s ease-in;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined">.accordionMenu :target p &#123;</span></span><br><span class="line"><span class="undefined">	height:100px;</span></span><br><span class="line"><span class="undefined">	overflow: auto;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined">.accordionMenu :target h2:before &#123;</span></span><br><span class="line"><span class="undefined">	border-color: transparent transparent transparent #fff;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined">​	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"accordionMenu"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"menuSection"</span> <span class="attr">id</span>=<span class="string">"brand"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">h2</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#brand"</span>&gt;</span>Brand<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"menuSection"</span> <span class="attr">id</span>=<span class="string">"promotion"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#promotion"</span>&gt;</span>Promotion<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"menuSection"</span> <span class="attr">id</span>=<span class="string">"event"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#event"</span>&gt;</span>Event<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">​<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-语言伪类选择器"><a href="#5-语言伪类选择器" class="headerlink" title="5. 语言伪类选择器"></a>5. 语言伪类选择器</h3><p>略过, 不常用,知道有这个东西就行</p>
+<h3 id="6-UI元素状态伪类选择器"><a href="#6-UI元素状态伪类选择器" class="headerlink" title="6. UI元素状态伪类选择器"></a>6. UI元素状态伪类选择器</h3><p>包含一下几种,都是我们平时常用的,不展开说</p>
+<ul>
+<li>E:checked</li>
+<li>E:enabled</li>
+<li>E:disabled</li>
+</ul>
+<h3 id="7-结构伪类选择器"><a href="#7-结构伪类选择器" class="headerlink" title="7. 结构伪类选择器"></a>7. 结构伪类选择器</h3><p>自己看表,种类比较多,用处也比较大</p>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E:first-child</td>
+<td style="text-align:center">选择父元素第一个子元素,相当于E:nth-child(1)</td>
+</tr>
+<tr>
+<td>E:last-child</td>
+<td style="text-align:center">选择父元素最后一个子元素,相当于E:nth-last-child(1)</td>
+</tr>
+<tr>
+<td>E:root</td>
+<td style="text-align:center">选择html元素</td>
+</tr>
+<tr>
+<td>E:nth-child(n)</td>
+<td style="text-align:center">选择父元素第n个子元素,n可以是整数,可以是公式,或者odd,even,n从1开始,</td>
+</tr>
+<tr>
+<td>E:nth-last-child(n)</td>
+<td style="text-align:center">于nth-child相反</td>
+</tr>
+<tr>
+<td>E:nth-of-type(n)</td>
+<td style="text-align:center">选择父元素内具有指定类型的第n个元素</td>
+</tr>
+<tr>
+<td>E:nth-last-of-type(n)</td>
+<td style="text-align:center">选择父元素指定类型的倒数第n个元素</td>
+</tr>
+<tr>
+<td>E:first-of-type</td>
+<td style="text-align:center">选择父元素内指定类型的第一个元素,于nth-of-type(1)相同</td>
+</tr>
+<tr>
+<td>E:last-of-type</td>
+<td style="text-align:center">选择父元素内指定类型的最后一个元素,于nth-last-of-type(1)相同</td>
+</tr>
+<tr>
+<td>E:only-child</td>
+<td style="text-align:center">选择父元素只包含一个子元素</td>
+</tr>
+<tr>
+<td>E:only-of-type</td>
+<td style="text-align:center">选择父元素只包含一个类型的子元素</td>
+</tr>
+<tr>
+<td>E:empty</td>
+<td style="text-align:center">匹配没有子元素的元素</td>
+</tr>
+</tbody>
+</table>
+<h4 id="结构伪类中的n是什么"><a href="#结构伪类中的n是什么" class="headerlink" title="结构伪类中的n是什么"></a>结构伪类中的n是什么</h4><p>n可以还是整数(1,2,3,4),关键字(odd,even),可以是公式(2n+1, -n+5)但是n的起始值是1,如果为0,选择器匹配不到任何的元素</p>
+<h4 id="nth-child-等例子"><a href="#nth-child-等例子" class="headerlink" title="nth-child 等例子"></a>nth-child 等例子</h4><p>浏览器中打开,一个一个试,就都明白了</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en-US"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>CSS3结构伪选择器的使用<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">		*&#123;</span></span><br><span class="line"><span class="undefined">			margin: 0;</span></span><br><span class="line"><span class="undefined">			padding: 0;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		ul &#123;</span></span><br><span class="line"><span class="undefined">			margin: 50px auto;</span></span><br><span class="line"><span class="undefined">			width: 400px;</span></span><br><span class="line"><span class="undefined">			list-style: none outside none;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		li &#123;</span></span><br><span class="line"><span class="undefined">			display:inline-block;</span></span><br><span class="line"><span class="undefined">			margin: 5px;</span></span><br><span class="line"><span class="undefined">			padding: 5px;</span></span><br><span class="line"><span class="undefined">			width:50px;</span></span><br><span class="line"><span class="undefined">			height: 50px;</span></span><br><span class="line"><span class="undefined">			font: bold 30px/50px arial;</span></span><br><span class="line"><span class="undefined">			background: #000;</span></span><br><span class="line"><span class="undefined">			color: #fff;</span></span><br><span class="line"><span class="undefined">			border-radius: 50px;</span></span><br><span class="line"><span class="undefined">			text-align: center;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		/*</span></span><br><span class="line"><span class="undefined">		ul&gt;li:first-child &#123;</span></span><br><span class="line"><span class="undefined">			background-color: green;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		ul&gt;li:last-child &#123;</span></span><br><span class="line"><span class="undefined">			background-color: blue;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		ul&gt;li:nth-child(3)&#123;</span></span><br><span class="line"><span class="undefined">			background-color: yellow;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		ul&gt;li:nth-child(n)&#123;</span></span><br><span class="line"><span class="undefined">			background-color: orange;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		ul&gt;li:nth-child(2n)&#123;</span></span><br><span class="line"><span class="undefined">			background-color: blue;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		ul&gt;li:nth-child(2n+1)&#123;</span></span><br><span class="line"><span class="undefined">			background-color: blue;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		</span></span><br><span class="line"><span class="undefined">		ul&gt;li:nth-child(-n+5)&#123;</span></span><br><span class="line"><span class="undefined">			background-color: blue;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		</span></span><br><span class="line"><span class="undefined">		ul&gt;li:nth-child(4n+1)&#123;</span></span><br><span class="line"><span class="undefined">			background-color: blue;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		*/</span></span><br><span class="line"><span class="undefined">		ul&gt;li:nth-last-child(even)&#123;</span></span><br><span class="line"><span class="undefined">			background-color: green;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>6<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>7<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>8<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>9<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>10<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>11<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>12<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>13<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>14<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>15<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>16<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>17<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>18<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>19<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>20<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="nth-of-type"><a href="#nth-of-type" class="headerlink" title="nth-of-type"></a>nth-of-type</h4><p>nth-of-type 和nth-child类似,不同之处在: nth-of-type 只计算父元素中的子元素,他是不管类型的,当父元素下有多种类型的子元素的时候nth-of-type比nth-child更好用</p>
+<p>例子</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en-US"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">		ul &#123;</span></span><br><span class="line"><span class="undefined">			list-style: none outside none;</span></span><br><span class="line"><span class="undefined">			padding: 10px;</span></span><br><span class="line"><span class="undefined">			background: green;</span></span><br><span class="line"><span class="undefined">			width: 400px;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		li &#123;margin-bottom: 10px;border: 1px solid orange;&#125;</span></span><br><span class="line"><span class="undefined">		div &#123;margin-bottom: 10px;border: 1px solid blue;&#125;</span></span><br><span class="line"><span class="undefined">		/*</span></span><br><span class="line"><span class="undefined">		ul&gt;li:nth-child(5) &#123;background-color: yellow;&#125;</span></span><br><span class="line"><span class="undefined">		</span></span><br><span class="line"><span class="undefined">		ul&gt; li:nth-child(2n)&#123;background-color: #fff&#125;</span></span><br><span class="line"><span class="undefined">		*/</span></span><br><span class="line"><span class="undefined">		ul&gt;li:nth-of-type(3)&#123;background-color:orange;&#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span>div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span>div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>6<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>7<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>8<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>9<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>10<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="only-child的使用"><a href="#only-child的使用" class="headerlink" title="only-child的使用"></a>only-child的使用</h4><p>选择父元素中只有一个子元素的元素</p>
+<p>例子</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en-US"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>:only-child的使用<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">		.post &#123;</span></span><br><span class="line"><span class="undefined">			width: 300px;</span></span><br><span class="line"><span class="undefined">			margin: 20px auto;</span></span><br><span class="line"><span class="undefined">			padding: 5px;</span></span><br><span class="line"><span class="undefined">			border: 1px solid #ccc;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		p &#123;</span></span><br><span class="line"><span class="undefined">			background: green;</span></span><br><span class="line"><span class="undefined">			color: #fff;</span></span><br><span class="line"><span class="undefined">			border: 1px solid orange;</span></span><br><span class="line"><span class="undefined">			padding: 5px;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		.post&gt;p:only-child&#123;</span></span><br><span class="line"><span class="undefined">			border-width: 2px;</span></span><br><span class="line"><span class="undefined">			background-color: #000;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span>我是第一个段落<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span>我是第二个段落<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span>我就一个段落<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="8-否定伪类选择器"><a href="#8-否定伪类选择器" class="headerlink" title="8. 否定伪类选择器"></a>8. 否定伪类选择器</h3><p>语法: E:not(F) 匹配所以除去F的E元素, 比较简单不展开</p>
+<h3 id="9-伪元素"><a href="#9-伪元素" class="headerlink" title="9. 伪元素"></a>9. 伪元素</h3><p>有一下几种</p>
+<ul>
+<li>::first-letter 选择第一个字母</li>
+<li>::first-line 选择第一行</li>
+<li>::before &amp; ::after 多用于清楚浮动</li>
+<li>::selection 选择被选中的文本</li>
+</ul>
+<h3 id="10-属性选择器"><a href="#10-属性选择器" class="headerlink" title="10. 属性选择器"></a>10. 属性选择器</h3><p>列举两个我觉得常用属性选择器</p>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E[attr]</td>
+<td style="text-align:center">选择有attr属性的E</td>
+</tr>
+<tr>
+<td>E[attr=val]</td>
+<td style="text-align:center">选择attr=val的E</td>
+</tr>
+</tbody>
+</table>
+<p>还有很多属性选择器,有点类似正则表达式的感觉了,不是特别的常用,如果想了解这,google吧,我这不一个一个列举了</p>
+<p>栗子上一下,有兴趣的一个一个研究下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en-US"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>CSS3属性选择器的使用<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .demo &#123;</span></span><br><span class="line"><span class="undefined">      width: 300px;</span></span><br><span class="line"><span class="undefined">			border: 1px solid #ccc;</span></span><br><span class="line"><span class="undefined">			padding: 10px;	</span></span><br><span class="line"><span class="undefined">      overflow: hidden;</span></span><br><span class="line"><span class="undefined">      margin: 20px auto;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">		.demo a &#123;</span></span><br><span class="line"><span class="undefined">			float: left;</span></span><br><span class="line"><span class="undefined">			display: block;</span></span><br><span class="line"><span class="undefined">			height: 50px;</span></span><br><span class="line"><span class="undefined">			width: 50px;</span></span><br><span class="line"><span class="undefined">			border-radius: 10px;</span></span><br><span class="line"><span class="undefined">			text-align: center;</span></span><br><span class="line"><span class="undefined">			background: #aac;</span></span><br><span class="line"><span class="undefined">			color: blue;</span></span><br><span class="line"><span class="undefined">      font: bold 20px/50px Arial;</span></span><br><span class="line"><span class="undefined">			margin-right: 5px;</span></span><br><span class="line"><span class="undefined">			text-decoration: none;</span></span><br><span class="line"><span class="undefined">      margin: 5px;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    a[id]&#123;background-color:yellow;&#125;</span></span><br><span class="line"><span class="undefined">    /* </span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"> a[id][title]&#123;background-color: red;&#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">    a[id=first]&#123;background-color:red;&#125;</span></span><br><span class="line"><span class="undefined">    a[class="links"]&#123;background-color:yellow;&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  a[lang|=zh]&#123;background-color: yellow;&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  a[title~=website]&#123;background-color:yellow;&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  a[class*=links]&#123;background-color:yellow;&#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">  a[href^=http]&#123;background-color:yellow;&#125;</span></span><br><span class="line"><span class="undefined"> */</span></span><br><span class="line"><span class="undefined"> a[href$=png]&#123;background-color:yellow;&#125;</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"demo"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.w3cplus.com"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">class</span>=<span class="string">"links item first"</span> <span class="attr">id</span>=<span class="string">"first"</span> <span class="attr">title</span>=<span class="string">"w3cplus"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"links active item"</span> <span class="attr">title</span>=<span class="string">"test website"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">lang</span>=<span class="string">"zh"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"sites/file/test.html"</span> <span class="attr">class</span>=<span class="string">"links item"</span> <span class="attr">title</span>=<span class="string">"this is a link"</span> <span class="attr">lang</span>=<span class="string">"zh-cn"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"sites/file/test.png"</span> <span class="attr">class</span>=<span class="string">"links item"</span> <span class="attr">target</span>=<span class="string">"_balnk"</span> <span class="attr">lang</span>=<span class="string">"zh-tw"</span>&gt;</span>4<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"sites/file/image.jpg"</span> <span class="attr">class</span>=<span class="string">"links item"</span> <span class="attr">title</span>=<span class="string">"zh-cn"</span>&gt;</span>5<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"mailto:w3cplus@hotmail"</span> <span class="attr">class</span>=<span class="string">"links item"</span> <span class="attr">title</span>=<span class="string">"website link"</span> <span class="attr">lang</span>=<span class="string">"zh"</span>&gt;</span>6<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/a.pdf"</span> <span class="attr">class</span>=<span class="string">"links item"</span> <span class="attr">title</span>=<span class="string">"open the website"</span> <span class="attr">lang</span>=<span class="string">"cn"</span>&gt;</span>7<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/abc.pdf"</span> <span class="attr">class</span>=<span class="string">"links item"</span> <span class="attr">title</span>=<span class="string">"close the website"</span> <span class="attr">lang</span>=<span class="string">"en-zh"</span>&gt;</span>8<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"abcdef.doc"</span> <span class="attr">class</span>=<span class="string">"links item"</span> <span class="attr">title</span>=<span class="string">"http://www.sina.com"</span>&gt;</span>9<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"abd.doc"</span> <span class="attr">class</span>=<span class="string">"linksitem last"</span> <span class="attr">id</span>=<span class="string">"last"</span>&gt;</span>10<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css3/" rel="tag"><i class="fa fa-tag"></i> css3</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/09/如何抓取页面所有内容/" rel="next" title="如何抓取页面所有内容">
+                <i class="fa fa-chevron-left"></i> 如何抓取页面所有内容
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpg"
+                alt="豆" />
+            
+              <p class="site-author-name" itemprop="name">豆</p>
+              <p class="site-description motion-element" itemprop="description">菜鸟程序员一枚</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基本选择器"><span class="nav-number">1.</span> <span class="nav-text">1. 基本选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-层次选择器"><span class="nav-number">2.</span> <span class="nav-text">2. 层次选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-动态伪类选择器"><span class="nav-number">3.</span> <span class="nav-text">3 动态伪类选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-目标伪类选择器"><span class="nav-number">4.</span> <span class="nav-text">4 目标伪类选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-语言伪类选择器"><span class="nav-number">5.</span> <span class="nav-text">5. 语言伪类选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-UI元素状态伪类选择器"><span class="nav-number">6.</span> <span class="nav-text">6. UI元素状态伪类选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-结构伪类选择器"><span class="nav-number">7.</span> <span class="nav-text">7. 结构伪类选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结构伪类中的n是什么"><span class="nav-number">7.1.</span> <span class="nav-text">结构伪类中的n是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nth-child-等例子"><span class="nav-number">7.2.</span> <span class="nav-text">nth-child 等例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nth-of-type"><span class="nav-number">7.3.</span> <span class="nav-text">nth-of-type</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#only-child的使用"><span class="nav-number">7.4.</span> <span class="nav-text">only-child的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-否定伪类选择器"><span class="nav-number">8.</span> <span class="nav-text">8. 否定伪类选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-伪元素"><span class="nav-number">9.</span> <span class="nav-text">9. 伪元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-属性选择器"><span class="nav-number">10.</span> <span class="nav-text">10. 属性选择器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">豆</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.5"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.5"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.5"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.5"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.5"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
